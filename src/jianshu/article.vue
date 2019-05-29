@@ -13,7 +13,11 @@
     <!-- <div class="contant">{{ article.output }}</div> -->
 
     <div v-html="article.output" class="markdown-body"></div>
-    <articlefooter :uid="uid"></articlefooter>
+    <articlefooter
+      :uid="uid"
+      :aid="id"
+      :comment_lists="article.comment"
+    ></articlefooter>
   </div>
 </template>
 

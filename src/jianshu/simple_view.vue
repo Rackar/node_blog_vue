@@ -3,6 +3,7 @@
     <div class="left">
       <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
       <!-- <div>{{ mydata.content }}</div> -->
+      <div class="name">{{ mydata.username }}</div>
       <div v-html="mydata.content" class="markdown-body"></div>
       <div>
         <span class="el-icon-message info">{{ mydata.count_some }}</span>
@@ -12,10 +13,6 @@
 
         <span>{{ mydata.time }}</span>
       </div>
-    </div>
-
-    <div class="right">
-      <img :src="mydata.img_url" alt width="120px" />
     </div>
   </div>
 </template>
@@ -53,13 +50,6 @@ export default {
     url() {
       return "/article/" + this.mydata._id;
     }
-
-    // simplemde() {
-    //   return this.$refs.markdownEditor.simplemde;
-    // },
-    // newcontent() {
-    //   return this.mydata.content;
-    // }
   }
 };
 </script>
@@ -68,10 +58,12 @@ export default {
 .list {
   margin: 12px 3px;
   margin-left: 30px;
-  text-align: left;
-  width: 100%;
+  text-align: center;
+  width: 50%;
   .left {
+    text-align: left;
     display: inline-block;
+    position: relative;
     width: 80%;
     h2 {
       cursor: pointer;
@@ -79,11 +71,16 @@ export default {
         text-decoration-line: underline;
       }
     }
+    .name {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
   }
-  .right {
-    display: inline-block;
-    width: 20%;
-  }
+  // .right {
+  //   display: inline-block;
+  //   width: 20%;
+  // }
   .info {
     padding: 5px;
   }

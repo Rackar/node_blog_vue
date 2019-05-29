@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <!-- <myheader></myheader> -->
-    <div class="link" @click="$router.push('/edit')">发布新文章</div>
-    <div class="link" @click="$router.push('/list')">列表</div>
-    <div class="link" @click="$router.push('/signup')">注册</div>
-    <div class="link" @click="$router.push('/login')">登录</div>
+    <div id="nav">
+      <div class="link" @click="$router.push('/edit')">发布新文章</div>
+      <div class="link" @click="$router.push('/list')">列表</div>
+      <div class="link" @click="$router.push('/signup')">注册</div>
+      <div class="link" @click="$router.push('/login')">登录</div>
+    </div>
+
     <router-view />
   </div>
 </template>
@@ -31,11 +34,17 @@ export default {
 }
 #nav {
   padding: 30px;
-  a {
+  .link {
+    display: inline-block;
+    padding: 8px;
+    margin: 10px;
+    background-color: antiquewhite;
+    border-radius: 5px;
     font-weight: bold;
     color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+    cursor: pointer;
+    &:hover {
+      background-color: #93eec5;
     }
   }
 }
