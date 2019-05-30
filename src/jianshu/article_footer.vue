@@ -22,8 +22,12 @@
     </div>
     <div class="buttons">
       <div class="left">
-        <div class="xihuan_button" @click="likeArticle">
-          ❤喜欢 | {{ liked_lists.length }}
+        <div
+          class="xihuan_button"
+          @click="likeArticle"
+          :class="{ iflike: iflike() }"
+        >
+          {{ iflike() ? "取消" : "点赞" }} ❤ | {{ liked_lists.length }}
         </div>
       </div>
 
@@ -88,7 +92,8 @@ export default {
           time: "201905",
           content: "收藏了，欢迎3"
         }
-      ]
+      ],
+      mylike: true
     };
   },
   props: {
@@ -150,9 +155,16 @@ export default {
               showClose: true,
               duration: 1000,
               type: "success",
-              message: "点赞成功"
+              message: res.data.msg
             });
-            this.liked_lists.push(body);
+            if (res.data.msg == "取消点赞成功") {
+              var i = this.liked_lists.findIndex(
+                value => value.userid == this.$store.state.userid
+              );
+              this.liked_lists = this.liked_lists.splice(i, 1);
+            } else if (res.data.msg == "点赞成功") {
+              this.liked_lists.push(body);
+            }
           } else {
             this.$message({
               showClose: true,
@@ -171,6 +183,13 @@ export default {
           });
         }
       );
+    },
+    iflike() {
+      var i = this.liked_lists.findIndex(
+        value => value.userid == this.$store.state.userid
+      );
+      // console.log(i);
+      return !(i == -1);
     },
     addComment() {
       let body = {
@@ -285,16 +304,22 @@ export default {
     .left {
       width: 48%;
       padding-left: 2%;
+
       .xihuan_button {
         cursor: pointer;
         padding: 12px 20px;
         margin: 5px;
         font-size: 20px;
         border: 1px solid rgb(230, 107, 127);
+        color: #ea6f5a;
         border-radius: 40px;
         display: inline-block;
         &:hover {
-          background-color: rgb(243, 187, 201);
+          background-color: rgb(255, 229, 236);
+        }
+        &.iflike {
+          color: rgb(255, 255, 255);
+          background-color: #ea6f5a;
         }
       }
     }
