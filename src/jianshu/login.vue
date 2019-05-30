@@ -83,7 +83,7 @@ export default {
                   message: res.data && res.data.msg
                 });
                 var token = "Bearer " + res.data.data.token;
-                window.localStorage.setItem("token", token);
+
                 // this.$store.state.token = token;
                 this.$store.commit("login_saveToken", token);
               } else {

@@ -15,27 +15,32 @@ export default new Router({
     {
       name: "edit",
       path: "/edit",
-      component: () => import("./jianshu/editer.vue")
+      component: () =>
+        import(/* webpackChunkName: "editer" */ "./jianshu/editer2.vue")
     },
     {
       name: "login",
       path: "/login",
-      component: () => import("./jianshu/login.vue")
+      component: () =>
+        import(/* webpackChunkName: "login" */ "./jianshu/login.vue")
     },
     {
       name: "signup",
       path: "/signup",
-      component: () => import("./jianshu/signup.vue")
+      component: () =>
+        import(/* webpackChunkName: "signup" */ "./jianshu/signup.vue")
     },
     {
       name: "list",
       path: "/list",
-      component: () => import("./jianshu/list.vue")
+      component: () =>
+        import(/* webpackChunkName: "list" */ "./jianshu/list.vue")
     },
     {
       name: "article",
       path: "/article/:id",
-      component: () => import("./jianshu/article.vue")
+      component: () =>
+        import(/* webpackChunkName: "article" */ "./jianshu/article.vue")
     }
   ]
 });

@@ -28,6 +28,7 @@ module.exports = {
   //   }
   // }
   configureWebpack: config => {
+    config.devtool = "source-map";
     if (isProduction) {
       config.plugins.push(
         new CompressionWebpackPlugin({
@@ -37,6 +38,7 @@ module.exports = {
           minRatio: 0.8
         })
       );
+    } else {
     }
   },
   chainWebpack: config => {
@@ -48,5 +50,6 @@ module.exports = {
         options.fix = true;
         return options;
       });
+    config.plugins.delete("prefetch"); //关闭预拉取插件
   }
 };

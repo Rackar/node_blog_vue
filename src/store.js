@@ -13,6 +13,7 @@ export default new Vuex.Store({
   mutations: {
     login_saveToken(state, data) {
       state.token = data;
+      window.localStorage.setItem("token", data);
       function parseJwt(token) {
         var base64Url = token.split(".")[1];
         var base64 = decodeURIComponent(

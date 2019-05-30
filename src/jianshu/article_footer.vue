@@ -3,7 +3,7 @@
     <el-button type="danger" round>赞赏支持</el-button>
     <div class="jubao">
       <!-- <span class="right">举报</span>
-      <span class="left">文集</span> -->
+      <span class="left">文集</span>-->
     </div>
     <div class="writer">
       <a href class="pic">
@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="left"><div class="xihuan_button">❤喜欢 | 2</div></div>
+      <div class="left">
+        <div class="xihuan_button" @click="likeArticle">
+          ❤喜欢 | {{ liked_lists.length }}
+        </div>
+      </div>
 
       <div class="right">
         <el-button icon="el-icon-search" circle></el-button>
@@ -108,6 +112,12 @@ export default {
           }
         ];
       }
+    },
+    liked_lists: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   mounted() {},
@@ -122,6 +132,46 @@ export default {
     }
   },
   methods: {
+    likeArticle() {
+      let body = {
+        // token: token,
+        userid: this.$store.state.userid,
+        username: this.$store.state.username,
+        // content: this.textarea,
+        // publicdate: new Date(),
+        _id: this.aid
+      };
+      // body = JSON.stringify(body);
+      this.$axios.put("/api/article/like", body).then(
+        res => {
+          console.log(res);
+          if (res.data && res.data.status == 1) {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "success",
+              message: "点赞成功"
+            });
+            this.liked_lists.push(body);
+          } else {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "error",
+              message: "点赞失败"
+            });
+          }
+        },
+        err => {
+          this.$message({
+            showClose: true,
+            duration: 1000,
+            type: "error",
+            message: "点赞失败"
+          });
+        }
+      );
+    },
     addComment() {
       let body = {
         // token: token,
@@ -161,6 +211,11 @@ export default {
           });
         }
       );
+    }
+  },
+  computed: {
+    like_count() {
+      return this.data;
     }
   }
 };

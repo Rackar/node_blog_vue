@@ -17,6 +17,7 @@
       :uid="uid"
       :aid="id"
       :comment_lists="article.comment"
+      :liked_lists="article.liked"
     ></articlefooter>
   </div>
 </template>
@@ -44,7 +45,8 @@ export default {
         writer: {
           name: "rackar"
         },
-        info: "2019.04.18 16:45* 字数 312 阅读 35评论 1喜欢 0"
+        info: "2019.04.18 16:45* 字数 312 阅读 35评论 1喜欢 0",
+        liked: []
       }
     };
   },
