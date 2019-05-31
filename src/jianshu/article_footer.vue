@@ -9,7 +9,15 @@
       <a href class="pic">
         <img src="/img/1.jpg" alt width="80px" />
       </a>
-      <el-button type="success" round class="guanzhu">+关注</el-button>
+      <el-button
+        type="success"
+        round
+        class="guanzhu"
+        @click="followUser"
+        :class="{ isFollowed: isFollowed }"
+      >
+        {{ isFollowed ? "取关" : "关注" }}
+      </el-button>
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         写了 {{ user.count.words }} 字，被
@@ -93,7 +101,8 @@ export default {
           content: "收藏了，欢迎3"
         }
       ],
-      mylike: true
+      mylike: true,
+      isFollowed: false
     };
   },
   props: {
@@ -132,6 +141,7 @@ export default {
         this.$axios.get("/user/" + this.uid).then(res => {
           console.log(res);
           this.user = res.data.data;
+          this.isFollowed = this.iffollowing();
         });
       }
     }
@@ -184,8 +194,68 @@ export default {
         }
       );
     },
+    followUser() {
+      let body = {
+        // token: token,
+        userid: this.$store.state.userid,
+        username: this.$store.state.username,
+        // content: this.textarea,
+        // publicdate: new Date(),
+        _id: this.uid,
+        aimusername: this.user.username
+      };
+      // body = JSON.stringify(body);
+      this.$axios.put("/api/user/follow", body).then(
+        res => {
+          console.log(res);
+          if (res.data && res.data.status == 1) {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "success",
+              message: res.data.msg
+            });
+            if (res.data.msg == "取关成功") {
+              this.isFollowed = false;
+              // var i = this.user.followed.findIndex(
+              //   value => value.userid == this.$store.state.userid
+              // );
+              // console.log(i);
+              // console.log(this.user.followed);
+              // this.user.followed = this.user.followed.splice(i, 1);
+              // console.log(this.user.followed);
+            } else if (res.data.msg == "关注成功") {
+              // this.user.followed.push(body);
+              this.isFollowed = true;
+            }
+          } else {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "error",
+              message: "关注失败"
+            });
+          }
+        },
+        err => {
+          this.$message({
+            showClose: true,
+            duration: 1000,
+            type: "error",
+            message: "关注失败"
+          });
+        }
+      );
+    },
     iflike() {
       var i = this.liked_lists.findIndex(
+        value => value.userid == this.$store.state.userid
+      );
+      // console.log(i);
+      return !(i == -1);
+    },
+    iffollowing() {
+      var i = this.user.followed.findIndex(
         value => value.userid == this.$store.state.userid
       );
       // console.log(i);
@@ -278,6 +348,10 @@ export default {
     }
     .guanzhu {
       float: right;
+      &.isFollowed {
+        color: gery;
+        background-color: rgb(179, 238, 151);
+      }
     }
     .info {
       &::before {

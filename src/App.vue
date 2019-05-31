@@ -2,8 +2,10 @@
   <div id="app">
     <!-- <myheader></myheader> -->
     <div id="nav">
+      <div class="link" @click="$router.push('/myFollowing')">我的关注</div>
+      <div class="link" @click="$router.push('/list')">全部文章列表</div>
       <div class="link" @click="$router.push('/edit')">发布新文章</div>
-      <div class="link" @click="$router.push('/list')">列表</div>
+
       <div class="link" @click="$router.push('/signup')">注册</div>
       <div class="link" @click="$router.push('/login')">登录</div>
     </div>

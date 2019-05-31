@@ -41,6 +41,12 @@ export default new Router({
       path: "/article/:id",
       component: () =>
         import(/* webpackChunkName: "article" */ "./jianshu/article.vue")
+    },
+    {
+      name: "myfollowing",
+      path: "/myfollowing",
+      component: () =>
+        import(/* webpackChunkName: "myfollowing" */ "./jianshu/myfollowing.vue")
     }
   ]
 });

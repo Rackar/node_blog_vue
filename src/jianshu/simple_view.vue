@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .list {
-  margin: 12px 3px;
+  margin: 10px 3px;
   margin-left: 30px;
   text-align: center;
   width: 50%;
@@ -66,6 +66,8 @@ export default {
     display: inline-block;
     position: relative;
     width: 80%;
+    padding-bottom: 20px;
+    border-bottom: 1px rgb(197, 196, 196) solid;
     h2 {
       cursor: pointer;
       &:hover {
