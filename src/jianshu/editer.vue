@@ -1,31 +1,31 @@
 <template>
   <div class="editer">
     <el-input v-model="title"></el-input>
-    <markdown-editor
+    <!-- <markdown-editor
       v-model="content"
       :configs="configs"
       ref="markdownEditor"
-    ></markdown-editor>
+    ></markdown-editor> -->
 
     <el-button @click="save">保存</el-button>
     <!-- {{ content }} -->
 
     <div>浏览页</div>
-    <div v-html="output" class="markdown-body"></div>
+    <!-- <div v-html="output" class="markdown-body"></div> -->
   </div>
 </template>
 
 <script>
 // import { markdownEditor } from "vue-simplemde";
-import markdownEditor from "vue-simplemde/src/markdown-editor";
+// import markdownEditor from "vue-simplemde/src/markdown-editor";
 export default {
   components: {
-    markdownEditor
+    // markdownEditor
   },
   computed: {
-    simplemde() {
-      return this.$refs.markdownEditor.simplemde;
-    }
+    // simplemde() {
+    //   return this.$refs.markdownEditor.simplemde;
+    // }
   },
   mounted() {
     // console.log(this.simplemde);
@@ -49,8 +49,8 @@ export default {
   methods: {
     save() {
       // console.log(this.content);
-      this.output = this.simplemde.markdown(this.content);
-      this.$store.commit("saveTempContent", this.output);
+      // this.output = this.simplemde.markdown(this.content);
+      // this.$store.commit("saveTempContent", this.output);
       // var token = window.localStorage.getItem("token");
 
       let body = {
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~simplemde/dist/simplemde.min.css";
+// @import "~simplemde/dist/simplemde.min.css";
 .editer {
   text-align: left;
   width: 100%;
