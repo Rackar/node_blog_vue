@@ -9,7 +9,7 @@
         <span class="el-icon-message info">{{ mydata.count_some }}</span>
         <span class="el-icon-message info">{{ mydata.count_view }}</span>
         <span class="el-icon-message info">{{ mydata.count_comit }}</span>
-        <span class="el-icon-message info">{{ mydata.count_like }}</span>
+        <span>❤{{ mydata.liked.length }}</span>
 
         <span>{{ mydata.time }}</span>
       </div>
@@ -41,7 +41,8 @@ export default {
           count_comit: "0",
           count_like: "0",
           time: "04.25 01:24",
-          img_url: "/img/1.jpg"
+          img_url: "/img/1.jpg",
+          liked: []
         };
       }
     }
@@ -56,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .list {
-  margin: 12px 3px;
+  margin: 10px 3px;
   margin-left: 30px;
   text-align: center;
   width: 50%;
@@ -65,6 +66,8 @@ export default {
     display: inline-block;
     position: relative;
     width: 80%;
+    padding-bottom: 20px;
+    border-bottom: 1px rgb(197, 196, 196) solid;
     h2 {
       cursor: pointer;
       &:hover {

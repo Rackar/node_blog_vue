@@ -11,8 +11,8 @@
     </div>
 
     <!-- <div class="contant">{{ article.output }}</div> -->
-
-    <div v-html="article.output" class="markdown-body"></div>
+    <viewer :value="article.content" class="markdown-body" />
+    <!-- <div v-html="article.output" class="markdown-body"></div> -->
     <articlefooter
       :uid="uid"
       :aid="id"
@@ -23,12 +23,14 @@
 </template>
 
 <script>
+import Viewer from "@toast-ui/vue-editor/src/Viewer.vue";
 import articlefooter from "./article_footer";
 // import markdownEditor from "vue-simplemde/src/markdown-editor";
 export default {
   components: {
     // markdownEditor
-    articlefooter
+    articlefooter,
+    Viewer
   },
 
   data() {
@@ -86,10 +88,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~simplemde/dist/simplemde.min.css";
+// @import "~simplemde/dist/simplemde.min.css";
+@import "~tui-editor/dist/tui-editor.css";
+@import "~tui-editor/dist/tui-editor-contents.css";
+@import "~codemirror/lib/codemirror.css";
+@import "~highlight.js/styles/github.css";
 .main {
   text-align: left;
-  width: 100%;
+  width: 70%;
+  margin-left: 15%;
   h1 {
     text-align: center;
   }
