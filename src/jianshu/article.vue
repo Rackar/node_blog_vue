@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // @import "~simplemde/dist/simplemde.min.css";
 @import "~tui-editor/dist/tui-editor.css";
 @import "~tui-editor/dist/tui-editor-contents.css";
@@ -95,17 +95,20 @@ export default {
 @import "~highlight.js/styles/github.css";
 .main {
   text-align: left;
-  width: 70%;
-  margin-left: 15%;
+  width: 60%;
+  margin-left: 20%;
   h1 {
     text-align: center;
   }
   .markdown-body {
     margin: 30px;
-    border: 3px orange solid;
+    // border: 1px orange solid;
     padding: 20px;
     border-radius: 20px;
     font-size: 18px;
+    .tui-editor-contents {
+      font-size: 18px !important;
+    }
   }
   .info {
     div {

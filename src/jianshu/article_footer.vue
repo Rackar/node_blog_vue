@@ -20,8 +20,10 @@
       </el-button>
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
-        写了 {{ user.count.words }} 字，被
-        {{ user.count.followed }} 人关注，获得了 {{ user.count.liked }} 个喜欢
+        <!-- 写了 {{ user.count.words }} 字， -->
+        被 {{ user.followed.length - 1 }} 人关注
+
+        <!-- ，获得了{{ user.count.liked }} 个喜欢 -->
       </div>
       <div class="info">
         微信公众号【程序员江湖】 作者黄小斜，斜杠青年，某985硕士，阿里 Java
@@ -330,10 +332,12 @@ export default {
   .writer {
     text-align: left;
     padding: 20px;
+    margin: 30px;
+    border-radius: 20px;
     font-size: 14px;
     color: rgb(77, 77, 77);
     border: 1px solid rgb(190, 190, 190);
-    background-color: rgb(240, 240, 240);
+    background-color: #f8f8f8;
     height: 120px;
     .writer-name {
       font-size: 22px;
@@ -408,21 +412,23 @@ export default {
     }
     .textbox {
       width: 84%;
+      background-color: #f8f8f8;
       textarea.el-textarea__inner {
+        background-color: #f8f8f8 !important;
         // height: 150px !important;
       }
     }
   }
   .pinglun_page {
     text-align: left;
-    margin: 10px;
+    margin: 15px 5px;
     h3 {
-      padding: 5px 0;
+      padding: 10px 0;
       // border-bottom: 1px solid rgb(75, 75, 75);
     }
     .pinglun_single {
-      padding: 10px;
-      border-top: 1px solid grey;
+      padding: 15px 5px;
+      border-top: 1px solid rgb(214, 214, 214);
       .name {
         display: inline;
         // font-size: 18px;

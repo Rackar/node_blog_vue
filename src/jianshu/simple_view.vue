@@ -3,13 +3,15 @@
     <div class="left">
       <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
       <!-- <div>{{ mydata.content }}</div> -->
-      <div class="name">{{ mydata.username }}</div>
-      <div v-html="mydata.content" class="markdown-body"></div>
+      <!-- <div class="name">{{ mydata.username }}</div> -->
+      <div class="markdown-body">{{ mydata.output }}</div>
       <div>
-        <span class="el-icon-message info">{{ mydata.count_some }}</span>
-        <span class="el-icon-message info">{{ mydata.count_view }}</span>
-        <span class="el-icon-message info">{{ mydata.count_comit }}</span>
-        <span>❤{{ mydata.liked.length }}</span>
+        <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
+        <span class="el-icon-user info">{{ mydata.username }}</span>
+        <span class="el-icon-chat-line-square info">{{
+          mydata.comment.length
+        }}</span>
+        <span class="info">❤{{ mydata.liked.length }}</span>
 
         <span>{{ mydata.time }}</span>
       </div>
@@ -85,7 +87,7 @@ export default {
   //   width: 20%;
   // }
   .info {
-    padding: 5px;
+    padding: 5px 15px 5px 0;
   }
 }
 </style>
