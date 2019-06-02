@@ -1,16 +1,22 @@
 <template>
   <div id="app">
     <!-- <myheader></myheader> -->
-    <div id="nav">
-      <div class="link" @click="$router.push('/myFollowing')">我的关注</div>
-      <div class="link" @click="$router.push('/list')">全部文章列表</div>
-      <div class="link" @click="$router.push('/edit')">发布新文章</div>
+    <el-row :gutter="10">
+      <el-col :sm="{span:24,offset:0}" :md="{span:16,offset:4}">
+        <div>
+          <div id="nav">
+            <div class="link" @click="$router.push('/myFollowing')">我的关注</div>
+            <div class="link" @click="$router.push('/list')">全部文章列表</div>
+            <div class="link" @click="$router.push('/edit')">发布新文章</div>
 
-      <div class="link" @click="$router.push('/signup')">注册</div>
-      <div class="link" @click="$router.push('/login')">登录</div>
-    </div>
+            <div class="link" @click="$router.push('/signup')">注册</div>
+            <div class="link" @click="$router.push('/login')">登录</div>
+          </div>
 
-    <router-view />
+          <router-view/>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
@@ -33,6 +39,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  // width: 500px;
 }
 #nav {
   padding: 30px;

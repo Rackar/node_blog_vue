@@ -7,7 +7,7 @@
     </div>
     <div class="writer">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px" />
+        <img src="/img/1.jpg" alt width="80px">
       </a>
       <el-button
         type="success"
@@ -15,14 +15,11 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-      >
-        {{ isFollowed ? "取关" : "关注" }}
-      </el-button>
+      >{{ isFollowed ? "取关" : "关注" }}</el-button>
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
         被 {{ user.followed.length - 1 }} 人关注
-
         <!-- ，获得了{{ user.count.liked }} 个喜欢 -->
       </div>
       <div class="info">
@@ -32,13 +29,12 @@
     </div>
     <div class="buttons">
       <div class="left">
-        <div
-          class="xihuan_button"
-          @click="likeArticle"
-          :class="{ iflike: iflike() }"
-        >
-          {{ iflike() ? "取消" : "点赞" }} ❤ | {{ liked_lists.length }}
-        </div>
+        <transition>
+          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
+            {{ iflike() ? "取消" : "点赞" }} ❤ |
+            {{ liked_lists.length }}
+          </div>
+        </transition>
       </div>
 
       <div class="right">
@@ -52,15 +48,9 @@
 
     <div class="pinglun">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px" />
+        <img src="/img/1.jpg" alt width="80px">
       </a>
-      <el-input
-        type="textarea"
-        :rows="4"
-        placeholder="请输入内容"
-        v-model="textarea"
-        class="textbox"
-      ></el-input>
+      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -352,9 +342,15 @@ export default {
     }
     .guanzhu {
       float: right;
+      // transition: background-color 1.9s linear 0;
+      // transition: font-size 5s ease 0;
+      font-size: 16px;
       &.isFollowed {
         color: gery;
-        background-color: rgb(179, 238, 151);
+        background-color: rgb(163, 200, 182);
+      }
+      &.hover {
+        font-size: 30px;
       }
     }
     .info {
@@ -392,8 +388,17 @@ export default {
         color: #ea6f5a;
         border-radius: 40px;
         display: inline-block;
+
+        // transition: background-color 3s ease 0;
+        // font-size: 18px;
+        // &.isFollowed {
+        //   color: gery;
+        //   background-color: rgb(27, 236, 132);
+        // }
+
         &:hover {
           background-color: rgb(255, 229, 236);
+          // font-size: 30px;
         }
         &.iflike {
           color: rgb(255, 255, 255);

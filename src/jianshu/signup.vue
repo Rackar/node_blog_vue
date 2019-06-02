@@ -1,29 +1,27 @@
 <template>
-  <div style="width:280px;">
+  <div>
     <!-- <h2 style="text-align:center">注册账号</h2> -->
-    <el-form
-      ref="form"
-      :model="form"
-      label-width="80px"
-      :rules="rules"
-      v-loading="loading"
-    >
-      <el-form-item label="用户名" prop="user_name">
-        <el-input v-model="form.user_name"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="form.password"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="password2">
-        <el-input type="password" v-model="form.password2"></el-input>
-      </el-form-item>
+    <el-row :gutter="10">
+      <el-col :xs="{span:18,offset:3}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
+        <el-form ref="form" :model="form" label-width="80px" :rules="rules" v-loading="loading">
+          <el-form-item label="电话号码" prop="tel">
+            <el-input v-model="form.tel"></el-input>
+          </el-form-item>
 
-      <el-form-item label="电话号码">
-        <el-input v-model="form.tel"></el-input>
-      </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="form.password"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="password2">
+            <el-input type="password" v-model="form.password2"></el-input>
+          </el-form-item>
+          <el-form-item label="昵称" prop="user_name">
+            <el-input v-model="form.user_name"></el-input>
+          </el-form-item>
 
-      <el-button type="primary" round @click="onSubmit('form')">注册</el-button>
-    </el-form>
+          <el-button type="primary" round @click="onSubmit('form')">注册</el-button>
+        </el-form>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -66,8 +64,12 @@ export default {
         user_name: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
-        password: [{ validator: validatePass, trigger: "blur" }],
-        password2: [{ validator: validatePass2, trigger: "blur" }],
+        password: [
+          { required: true, validator: validatePass, trigger: "blur" }
+        ],
+        password2: [
+          { required: true, validator: validatePass2, trigger: "blur" }
+        ],
         tel: [{ required: true, message: "请输入电话号码", trigger: "blur" }]
       }
     };

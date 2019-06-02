@@ -1,27 +1,31 @@
 <template>
-  <div style="width:280px;">
+  <div>
     <!-- <h2 style="text-align:center">登录</h2> -->
-    <el-form
-      ref="form"
-      :model="form"
-      :rules="rules"
-      label-width="80px"
-      status-icon
-      v-loading="loading"
-    >
-      <el-form-item label="手机号" prop="user_name">
-        <el-input v-model="form.tel"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="form.password"></el-input>
-      </el-form-item>
+    <el-row :gutter="10">
+      <el-col :xs="{span:18,offset:3}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
+        <el-form
+          ref="form"
+          :model="form"
+          :rules="rules"
+          label-width="80px"
+          status-icon
+          v-loading="loading"
+        >
+          <el-form-item label="手机号" prop="tel">
+            <el-input v-model="form.tel"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="form.password"></el-input>
+          </el-form-item>
 
-      <!-- <el-form-item>
+          <!-- <el-form-item>
       
         <el-button @click="$router.replace('/login')">注册</el-button>
-      </el-form-item>-->
-    </el-form>
-    <el-button type="primary" round @click="onSubmit('form')">登录</el-button>
+          </el-form-item>-->
+        </el-form>
+        <el-button type="primary" round @click="onSubmit('form')">登录</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

@@ -8,9 +8,11 @@
       <div>
         <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
         <span class="el-icon-user info">{{ mydata.username }}</span>
-        <span class="el-icon-chat-line-square info">{{
+        <span class="el-icon-chat-line-square info">
+          {{
           mydata.comment.length
-        }}</span>
+          }}
+        </span>
         <span class="info">❤{{ mydata.liked.length }}</span>
 
         <span>{{ mydata.time }}</span>
@@ -60,9 +62,9 @@ export default {
 <style lang="scss" scoped>
 .list {
   margin: 10px 3px;
-  margin-left: 30px;
+  // margin-left: 30px;
   text-align: center;
-  width: 50%;
+  // width: 50%;
   .left {
     text-align: left;
     display: inline-block;
@@ -72,9 +74,14 @@ export default {
     border-bottom: 1px rgb(197, 196, 196) solid;
     h2 {
       cursor: pointer;
+      display: inline-block;
       &:hover {
         text-decoration-line: underline;
       }
+    }
+    .markdown-body {
+      overflow: hidden;
+      // white-space: nowrap;
     }
     .name {
       position: absolute;

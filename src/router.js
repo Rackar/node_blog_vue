@@ -16,7 +16,7 @@ export default new Router({
       name: "edit",
       path: "/edit",
       component: () =>
-        import(/* webpackChunkName: "editer" */ "./jianshu/editer2.vue")
+        import(/* webpackChunkName: "editer" */ "./jianshu/editer.vue")
     },
     {
       name: "login",
@@ -46,7 +46,9 @@ export default new Router({
       name: "myfollowing",
       path: "/myfollowing",
       component: () =>
-        import(/* webpackChunkName: "myfollowing" */ "./jianshu/myfollowing.vue")
+        import(
+          /* webpackChunkName: "myfollowing" */ "./jianshu/myfollowing.vue"
+        )
     }
   ]
 });

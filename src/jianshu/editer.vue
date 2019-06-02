@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <el-input v-model="title"></el-input>
+    <el-input v-model="title" placeholder="文章标题"></el-input>
     <editor
       v-model="content"
       previewStyle="tab"
@@ -10,14 +10,15 @@
       mode="markdown"
       @load="onEditorLoad"
     />
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="是否插入预览图">
+        <el-checkbox v-model="formInline.active">开启</el-checkbox>
+      </el-form-item>
+      <el-form-item label="地址url">
+        <el-input v-model="formInline.url" placeholder="http://"></el-input>
+      </el-form-item>
+    </el-form>
     <el-button @click="save">保存</el-button>
-    <!-- {{ content }} -->
-
-    <div>浏览页</div>
-    {{ content }}
-    <div>{{ output }}</div>
-    <viewer :value="content" />
-    <!-- <div v-html="output" class="markdown-body"></div> -->
   </div>
 </template>
 
@@ -36,6 +37,10 @@ export default {
   },
   data() {
     return {
+      formInline: {
+        active: false,
+        url: ""
+      },
       title: "",
       output: "",
       content: "",

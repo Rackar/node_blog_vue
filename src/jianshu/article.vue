@@ -11,7 +11,7 @@
     </div>
 
     <!-- <div class="contant">{{ article.output }}</div> -->
-    <viewer :value="article.content" class="markdown-body" />
+    <viewer :value="article.content" class="markdown-body"/>
     <!-- <div v-html="article.output" class="markdown-body"></div> -->
     <articlefooter
       :uid="uid"
@@ -95,8 +95,8 @@ export default {
 @import "~highlight.js/styles/github.css";
 .main {
   text-align: left;
-  width: 60%;
-  margin-left: 20%;
+  // width: 60%;
+  // margin-left: 20%;
   h1 {
     text-align: center;
   }
