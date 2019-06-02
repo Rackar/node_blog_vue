@@ -32,6 +32,20 @@ export default {
   },
   computed: {},
   mounted() {
+    if (this.$route.params.id) {
+      this.$axios
+        .get("http://localhost:3000/article/" + this.$route.params.id)
+        .then(result => {
+          console.log(result);
+          if (result.data.status === 1) {
+            this.article = result.data.data;
+            this.uid = result.data.data.userid;
+
+            this.content = this.article.content;
+            this.title = this.article.title;
+          }
+        });
+    }
     // console.log(this.simplemde);
     // this.simplemde.togglePreview();
   },
@@ -41,6 +55,8 @@ export default {
         active: false,
         url: ""
       },
+      article: {},
+      uid: "",
       title: "",
       output: "",
       content: "",
@@ -70,18 +86,59 @@ export default {
         count_comit: 0,
         count_like: 0
       };
-      // body = JSON.stringify(body);
-      this.$axios.post("/api/article", body).then(
-        res => {
-          console.log(res);
-          if (res.data && res.data.status == 1) {
+      if (this.$route.params.id) {
+        body._id = this.$route.params.id;
+        body.userid = this.article.userid;
+        this.$axios.put("/api/article", body).then(
+          res => {
+            console.log(res);
+            if (res.data && res.data.status == 1) {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "success",
+                message: "文章编辑成功"
+              });
+            } else {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "error",
+                message: "文章编辑失败"
+              });
+            }
+          },
+          err => {
             this.$message({
               showClose: true,
               duration: 1000,
-              type: "success",
-              message: "文章发布成功"
+              type: "error",
+              message: "文章编辑失败"
             });
-          } else {
+          }
+        );
+      } else {
+        // body = JSON.stringify(body);
+        this.$axios.post("/api/article", body).then(
+          res => {
+            console.log(res);
+            if (res.data && res.data.status == 1) {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "success",
+                message: "文章发布成功"
+              });
+            } else {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "error",
+                message: "文章发布失败"
+              });
+            }
+          },
+          err => {
             this.$message({
               showClose: true,
               duration: 1000,
@@ -89,16 +146,8 @@ export default {
               message: "文章发布失败"
             });
           }
-        },
-        err => {
-          this.$message({
-            showClose: true,
-            duration: 1000,
-            type: "error",
-            message: "文章发布失败"
-          });
-        }
-      );
+        );
+      }
     },
     onEditorLoad() {}
   }

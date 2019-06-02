@@ -2,6 +2,7 @@
   <div class="main">
     <h1>{{ article.title }}</h1>
     <div class="info">
+      <el-button v-show="myUserId == uid" @click="editArticle">编辑</el-button>
       <!-- <div class="left">图片</div>
       <div class="middle">
         <div class="top"></div>
@@ -11,7 +12,7 @@
     </div>
 
     <!-- <div class="contant">{{ article.output }}</div> -->
-    <viewer :value="article.content" class="markdown-body"/>
+    <viewer :value="article.content" class="markdown-body" />
     <!-- <div v-html="article.output" class="markdown-body"></div> -->
     <articlefooter
       :uid="uid"
@@ -56,6 +57,9 @@ export default {
     this.initArticle();
   },
   methods: {
+    editArticle() {
+      this.$router.push("/edit/" + this.id);
+    },
     initArticle() {
       this.$axios
         .get("http://localhost:3000/article/" + this.id)
@@ -74,6 +78,9 @@ export default {
   computed: {
     id() {
       return this.$route.params.id;
+    },
+    myUserId() {
+      return this.$store.state.userid;
     },
     output() {
       return this.$store.state.output;
@@ -111,21 +118,22 @@ export default {
     }
   }
   .info {
-    div {
-      display: inline-block;
-    }
-    .left {
-      width: 10%;
-    }
-    .middle {
-      width: 80%;
-      .top {
-        display: block;
-      }
-    }
-    .right {
-      width: 10%;
-    }
+    text-align: right;
+    // div {
+    //   display: inline-block;
+    // }
+    // .left {
+    //   width: 10%;
+    // }
+    // .middle {
+    //   width: 80%;
+    //   .top {
+    //     display: block;
+    //   }
+    // }
+    // .right {
+    //   width: 10%;
+    // }
   }
 }
 </style>

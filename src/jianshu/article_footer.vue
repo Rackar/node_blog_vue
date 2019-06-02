@@ -7,7 +7,7 @@
     </div>
     <div class="writer">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px">
+        <img src="/img/1.jpg" alt width="80px" />
       </a>
       <el-button
         type="success"
@@ -15,7 +15,8 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-      >{{ isFollowed ? "取关" : "关注" }}</el-button>
+        >{{ isFollowed ? "取关" : "关注" }}</el-button
+      >
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
@@ -30,7 +31,11 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
+          <div
+            class="xihuan_button"
+            @click="likeArticle"
+            :class="{ iflike: iflike() }"
+          >
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -48,9 +53,15 @@
 
     <div class="pinglun">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px">
+        <img src="/img/1.jpg" alt width="80px" />
       </a>
-      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入内容"
+        v-model="textarea"
+        class="textbox"
+      ></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -72,7 +83,7 @@ export default {
   data() {
     return {
       textarea: "",
-      user: { count: {} },
+      user: { count: {}, followed: [] },
       items: [
         {
           id: 0,
