@@ -2,8 +2,10 @@
   <div class="main">
     <h1>{{ article.title }}</h1>
     <div class="info">
+      本文浏览次数：{{ article.clickCount }}
       <el-button v-show="myUserId == uid" @click="editArticle">编辑</el-button>
-      <!-- <div class="left">图片</div>
+      <el-button v-show="myUserId == uid" @click="delArticle">删除</el-button
+      ><!-- <div class="left">图片</div>
       <div class="middle">
         <div class="top"></div>
         <div class="bottle"></div>
@@ -60,6 +62,36 @@ export default {
     editArticle() {
       this.$router.push("/edit/" + this.id);
     },
+    delArticle() {
+      this.$axios
+        .delete(
+          "http://localhost:3000/api/article/" + this.id
+          // ,
+          // {
+          //   params: { _id: this.id, userid: this.article.userid }
+          // }
+        )
+        .then(result => {
+          console.log(result);
+
+          if (result.data.status === 1 && result.data.msg === "文章删除成功") {
+            this.$router.replace("/list");
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "success",
+              message: "文章删除成功"
+            });
+          } else {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "error",
+              message: "文章删除失败"
+            });
+          }
+        });
+    },
     initArticle() {
       this.$axios
         .get("http://localhost:3000/article/" + this.id)
@@ -68,6 +100,14 @@ export default {
           if (result.data.status === 1) {
             this.article = result.data.data;
             this.uid = result.data.data.userid;
+          } else if (result.data.status === 2) {
+            this.$router.replace("/list");
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "error",
+              message: "文章未找到"
+            });
           }
         });
 
@@ -119,6 +159,7 @@ export default {
   }
   .info {
     text-align: right;
+    margin: 30px;
     // div {
     //   display: inline-block;
     // }
