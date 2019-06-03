@@ -6,10 +6,36 @@
 - [x] 文章编辑（本人显示按钮）
 - [x] 文章删除（本人显示按钮）
 - [ ] 文集功能（后台文集列表）
+用户表下创建文集数组Lists
+```
+Lists:[
+   { _id,
+    name:string,
+    ArticlesId:[]
+    }
+]
+```
+
+Restful api:
+
+post api/lists 创建文集
+
+post api/lists/article 添加单文章到文集
+
+get api/lists/:id 获取某个文集的名称和文章列表
+
+delete api/lists/:id/article/:aid
+
+
+
+
+
+Users下新增
+
 
 ## 功能
 
-- [ ] 浏览量
+- [x] 浏览量
 - [x] 点赞、关注
 - [x] 评论
 
