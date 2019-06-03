@@ -1,6 +1,16 @@
 <template>
   <div class="myfooter">
     <el-button type="danger" round>赞赏支持</el-button>
+    <el-button @click="addToList">加入文集</el-button>
+    <el-select v-model="listSelected" placeholder="请选择">
+      <el-option
+        v-for="item in user.Lists"
+        :key="item.id"
+        :label="item.name"
+        :value="item._id"
+      >
+      </el-option>
+    </el-select>
     <div class="jubao">
       <!-- <span class="right">举报</span>
       <span class="left">文集</span>-->
@@ -82,6 +92,7 @@
 export default {
   data() {
     return {
+      listSelected: "",
       textarea: "",
       user: { count: {}, followed: [] },
       items: [
@@ -112,6 +123,17 @@ export default {
     uid: {
       type: String,
       default: ""
+    },
+    article: {
+      type: Object,
+      default() {
+        return {
+          aid: "",
+          title: "",
+          userid: "",
+          username: ""
+        };
+      }
     },
     aid: {
       type: String,
@@ -146,10 +168,56 @@ export default {
           this.user = res.data.data;
           this.isFollowed = this.iffollowing();
         });
+        this.$axios.get("/api/lists/" + this.uid).then(res => {
+          console.log(res);
+        });
       }
     }
   },
   methods: {
+    addToList() {
+      console.log(this.listSelected);
+      debugger;
+      var body = {
+        listid: this.listSelected,
+        userid: this.uid,
+        article: {
+          aid: this.aid,
+          title: this.article.title,
+          userid: this.article.userid,
+          username: this.article.username
+        }
+      };
+      this.$axios.post("/api/lists/article", body).then(
+        res => {
+          console.log(res);
+          if (res.data && res.data.status == 1) {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "success",
+              message: "评论发布成功"
+            });
+            this.comment_lists.push(body);
+          } else {
+            this.$message({
+              showClose: true,
+              duration: 1000,
+              type: "error",
+              message: "评论发布失败"
+            });
+          }
+        },
+        err => {
+          this.$message({
+            showClose: true,
+            duration: 1000,
+            type: "error",
+            message: "文章发布失败"
+          });
+        }
+      );
+    },
     likeArticle() {
       let body = {
         // token: token,

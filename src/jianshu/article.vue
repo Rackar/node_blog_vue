@@ -21,6 +21,7 @@
       :aid="id"
       :comment_lists="article.comment"
       :liked_lists="article.liked"
+      :article="article"
     ></articlefooter>
   </div>
 </template>
