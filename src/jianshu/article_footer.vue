@@ -4,7 +4,7 @@
     <el-button @click="addToList">加入文集</el-button>
     <el-select v-model="listSelected" placeholder="请选择">
       <el-option
-        v-for="item in user.Lists"
+        v-for="item in lists"
         :key="item.id"
         :label="item.name"
         :value="item._id"
@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       listSelected: "",
+      lists: [],
       textarea: "",
       user: { count: {}, followed: [] },
       items: [
@@ -168,8 +169,10 @@ export default {
           this.user = res.data.data;
           this.isFollowed = this.iffollowing();
         });
-        this.$axios.get("/api/lists/" + this.uid).then(res => {
+        this.$axios.get("/api/lists/" + this.$store.state.userid).then(res => {
           console.log(res);
+          if (res.data.status === 1 && res.data.msg == "拉取文集成功")
+            this.lists = res.data.data;
         });
       }
     }
@@ -177,10 +180,10 @@ export default {
   methods: {
     addToList() {
       console.log(this.listSelected);
-      debugger;
+      // debugger;
       var body = {
         listid: this.listSelected,
-        userid: this.uid,
+        userid: this.$store.state.userid,
         article: {
           aid: this.aid,
           title: this.article.title,

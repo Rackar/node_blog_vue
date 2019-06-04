@@ -24,7 +24,7 @@ export default {
         console.log(res);
         // this.lists = res.data;
         this.lists = [];
-        this.lists.push(...res.data.data);
+        if (res.data.data) this.lists.push(...res.data.data);
       });
       // this.$axios.get("http://localhost:3000/api/").then(res => {
       //   console.log(res);
