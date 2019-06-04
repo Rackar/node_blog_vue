@@ -37,6 +37,12 @@ export default new Router({
         import(/* webpackChunkName: "signup" */ "./jianshu/signup.vue")
     },
     {
+      name: "mylists",
+      path: "/mylists",
+      component: () =>
+        import(/* webpackChunkName: "mylists" */ "./jianshu/mylists.vue")
+    },
+    {
       name: "list",
       path: "/list",
       component: () =>

@@ -2,10 +2,15 @@
   <div id="app">
     <!-- <myheader></myheader> -->
     <el-row :gutter="10">
-      <el-col :sm="{span:24,offset:0}" :md="{span:16,offset:4}">
+      <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 16, offset: 4 }">
         <div>
           <div id="nav">
-            <div class="link" @click="$router.push('/myFollowing')">我的关注</div>
+            <div class="link" @click="$router.push('/myFollowing')">
+              我的关注
+            </div>
+            <div class="link" @click="$router.push('/mylists')">
+              我创建的文集
+            </div>
             <div class="link" @click="$router.push('/list')">全部文章列表</div>
             <div class="link" @click="$router.push('/edit')">发布新文章</div>
 
@@ -13,7 +18,7 @@
             <div class="link" @click="$router.push('/login')">登录</div>
           </div>
 
-          <router-view/>
+          <router-view />
         </div>
       </el-col>
     </el-row>
