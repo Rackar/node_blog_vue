@@ -8,6 +8,11 @@
       <div>
         <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
         <span class="el-icon-user info">{{ mydata.username }}</span>
+        <span class="el-icon-view info">
+          {{
+          mydata.clickCount
+          }}
+        </span>
         <span class="el-icon-chat-line-square info">
           {{
           mydata.comment.length

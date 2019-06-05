@@ -1,6 +1,16 @@
 <template>
   <div>
-    <simple v-for="x in lists" :mydata="x" :key="x.id" />
+    <el-pagination
+      :hide-on-single-page="true"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[5,10, 20, 30,50]"
+      :page-size="pagesize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="lists.length"
+    ></el-pagination>
+    <simple v-for="x in pagedLists" :mydata="x" :key="x.id"/>
   </div>
 </template>
 
@@ -49,7 +59,9 @@ export default {
         //   time: "04.25 01:24",
         //   img_url: "/img/1.jpg"
         // }
-      ]
+      ],
+      currentPage: 1,
+      pagesize: 5
     };
   },
   mounted() {
@@ -67,6 +79,29 @@ export default {
       //   console.log(res);
       //   // this.lists = res.data;
       // });
+    },
+
+    handleSizeChange: function(size) {
+      this.pagesize = size;
+    },
+    handleCurrentChange: function(currentPage) {
+      this.currentPage = currentPage;
+    }
+  },
+  computed: {
+    pagedLists: {
+      get: function() {
+        var ep = this.lists.slice(
+          (this.currentPage - 1) * this.pagesize,
+          this.currentPage * this.pagesize
+        );
+        // console.log("分页数据变化");
+        return ep;
+      },
+      // setter
+      set: function(newValue) {
+        this.lists = newValue;
+      }
     }
   }
 };
