@@ -18,9 +18,9 @@
         <el-input v-model="formInline.url" placeholder="http://"></el-input>
       </el-form-item>
     </el-form>
-
-    创建文集 <el-input v-model="listname" placeholder=""></el-input>
-    <el-button @click="saveList">添加</el-button>
+    <!-- 创建文集
+    <el-input v-model="listname" placeholder></el-input>
+    <el-button @click="saveList">添加</el-button>-->
     <el-button @click="save">保存</el-button>
   </div>
 </template>
@@ -73,42 +73,42 @@ export default {
     };
   },
   methods: {
-    saveList() {
-      var body = {
-        userid: this.$store.state.userid,
-        name: this.listname,
-        username: this.$store.state.username
-      };
+    // saveList() {
+    //   var body = {
+    //     userid: this.$store.state.userid,
+    //     name: this.listname,
+    //     username: this.$store.state.username
+    //   };
 
-      this.$axios.post("/api/lists", body).then(
-        res => {
-          console.log(res);
-          if (res.data && res.data.status == 1) {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "success",
-              message: "文章发布成功"
-            });
-          } else {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "error",
-              message: "文章发布失败"
-            });
-          }
-        },
-        err => {
-          this.$message({
-            showClose: true,
-            duration: 1000,
-            type: "error",
-            message: "文章发布失败"
-          });
-        }
-      );
-    },
+    //   this.$axios.post("/api/lists", body).then(
+    //     res => {
+    //       console.log(res);
+    //       if (res.data && res.data.status == 1) {
+    //         this.$message({
+    //           showClose: true,
+    //           duration: 1000,
+    //           type: "success",
+    //           message: "文章发布成功"
+    //         });
+    //       } else {
+    //         this.$message({
+    //           showClose: true,
+    //           duration: 1000,
+    //           type: "error",
+    //           message: "文章发布失败"
+    //         });
+    //       }
+    //     },
+    //     err => {
+    //       this.$message({
+    //         showClose: true,
+    //         duration: 1000,
+    //         type: "error",
+    //         message: "文章发布失败"
+    //       });
+    //     }
+    //   );
+    // },
     save() {
       // console.log(this.content);
       // this.output = this.simplemde.markdown(this.content);

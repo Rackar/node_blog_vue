@@ -3,13 +3,7 @@
     <el-button type="danger" round>赞赏支持</el-button>
     <el-button @click="addToList">加入文集</el-button>
     <el-select v-model="listSelected" placeholder="请选择">
-      <el-option
-        v-for="item in lists"
-        :key="item.id"
-        :label="item.name"
-        :value="item._id"
-      >
-      </el-option>
+      <el-option v-for="item in lists" :key="item.id" :label="item.name" :value="item._id"></el-option>
     </el-select>
     <div class="jubao">
       <!-- <span class="right">举报</span>
@@ -17,7 +11,7 @@
     </div>
     <div class="writer">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px" />
+        <img src="/img/1.jpg" alt width="80px">
       </a>
       <el-button
         type="success"
@@ -25,8 +19,7 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-        >{{ isFollowed ? "取关" : "关注" }}</el-button
-      >
+      >{{ isFollowed ? "取关" : "关注" }}</el-button>
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
@@ -41,11 +34,7 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div
-            class="xihuan_button"
-            @click="likeArticle"
-            :class="{ iflike: iflike() }"
-          >
+          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -63,15 +52,9 @@
 
     <div class="pinglun">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px" />
+        <img src="/img/1.jpg" alt width="80px">
       </a>
-      <el-input
-        type="textarea"
-        :rows="4"
-        placeholder="请输入内容"
-        v-model="textarea"
-        class="textbox"
-      ></el-input>
+      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -180,46 +163,66 @@ export default {
   methods: {
     addToList() {
       console.log(this.listSelected);
+      //判断选中的id和已有id中的article重不重
       // debugger;
-      var body = {
-        listid: this.listSelected,
-        userid: this.$store.state.userid,
-        article: {
-          aid: this.aid,
-          title: this.article.title,
-          userid: this.article.userid,
-          username: this.article.username
-        }
-      };
-      this.$axios.post("/api/lists/article", body).then(
-        res => {
-          console.log(res);
-          if (res.data && res.data.status == 1) {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "success",
-              message: "评论发布成功"
-            });
-            this.comment_lists.push(body);
-          } else {
+      var listSel = this.lists.find(list => list._id == this.listSelected);
+      var contains = listSel.articles.find(arti => arti.id == this.aid);
+      if (contains) {
+        this.$message({
+          showClose: true,
+          duration: 1000,
+          type: "error",
+          message: "文集中已存在本文章"
+        });
+      } else {
+        var body = {
+          listid: this.listSelected,
+          userid: this.$store.state.userid,
+          article: {
+            aid: this.aid,
+            title: this.article.title,
+            userid: this.article.userid,
+            username: this.article.username
+          }
+        };
+        this.$axios.post("/api/lists/article", body).then(
+          res => {
+            console.log(res);
+            if (res.data && res.data.status == 1) {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "success",
+                message: "添加成功"
+              });
+              var newarti = {
+                id: this.aid,
+                title: this.article.title,
+                userid: this.article.userid,
+                username: this.article.username
+              };
+
+              listSel.articles.push(newarti);
+            } else {
+              this.$message({
+                showClose: true,
+                duration: 1000,
+                type: "error",
+                message: "添加失败"
+              });
+            }
+          },
+          err => {
             this.$message({
               showClose: true,
               duration: 1000,
               type: "error",
-              message: "评论发布失败"
+              message: "添加失败"
             });
           }
-        },
-        err => {
-          this.$message({
-            showClose: true,
-            duration: 1000,
-            type: "error",
-            message: "文章发布失败"
-          });
-        }
-      );
+        );
+      }
+      //
     },
     likeArticle() {
       let body = {
