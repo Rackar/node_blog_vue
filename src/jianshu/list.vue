@@ -5,12 +5,12 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
-      :page-sizes="[5,10, 20, 30,50]"
+      :page-sizes="[5, 10, 20, 30, 50]"
       :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="lists.length"
     ></el-pagination>
-    <simple v-for="x in pagedLists" :mydata="x" :key="x.id"/>
+    <simple v-for="x in pagedLists" :mydata="x" :key="x.id" />
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
         // }
       ],
       currentPage: 1,
-      pagesize: 5
+      pagesize: 10
     };
   },
   mounted() {

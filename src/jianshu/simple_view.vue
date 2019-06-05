@@ -2,6 +2,7 @@
   <div class="list">
     <div class="left">
       <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
+      <div>发布时间：{{ datestring }}</div>
       <!-- <div>{{ mydata.content }}</div> -->
       <!-- <div class="name">{{ mydata.username }}</div> -->
       <div class="markdown-body">{{ mydata.output }}</div>
@@ -9,14 +10,10 @@
         <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
         <span class="el-icon-user info">{{ mydata.username }}</span>
         <span class="el-icon-view info">
-          {{
-          mydata.clickCount
-          }}
+          {{ mydata.clickCount }}
         </span>
         <span class="el-icon-chat-line-square info">
-          {{
-          mydata.comment.length
-          }}
+          {{ mydata.comment.length }}
         </span>
         <span class="info">❤{{ mydata.liked.length }}</span>
 
@@ -28,6 +25,7 @@
 
 <script>
 export default {
+  methods: {},
   data() {
     return {
       content: {}
@@ -51,7 +49,8 @@ export default {
           count_like: "0",
           time: "04.25 01:24",
           img_url: "/img/1.jpg",
-          liked: []
+          liked: [],
+          publicdate: "2019-06-05T15:11:48.227Z"
         };
       }
     }
@@ -59,6 +58,20 @@ export default {
   computed: {
     url() {
       return "/article/" + this.mydata._id;
+    },
+    datestring() {
+      let d = new Date(this.mydata.publicdate);
+      let datestring =
+        d.getFullYear() +
+        "-" +
+        ("0" + (d.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + d.getDate()).slice(-2) +
+        " " +
+        ("0" + d.getHours()).slice(-2) +
+        ":" +
+        ("0" + d.getMinutes()).slice(-2);
+      return datestring;
     }
   }
 };
