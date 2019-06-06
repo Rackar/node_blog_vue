@@ -12,6 +12,7 @@
 
             <div class="link" @click="$router.push('/signup')">注册</div>
             <div class="link" @click="$router.push('/login')">登录</div>
+            <div class="link" @click="$router.push('/upload')">上传组件</div>
           </div>
 
           <router-view/>
