@@ -3,7 +3,12 @@
     <el-button type="danger" round>赞赏支持</el-button>
     <el-button @click="addToList">加入文集</el-button>
     <el-select v-model="listSelected" placeholder="请选择">
-      <el-option v-for="item in lists" :key="item.id" :label="item.name" :value="item._id"></el-option>
+      <el-option
+        v-for="item in lists"
+        :key="item.id"
+        :label="item.name"
+        :value="item._id"
+      ></el-option>
     </el-select>
     <div class="jubao">
       <!-- <span class="right">举报</span>
@@ -11,7 +16,8 @@
     </div>
     <div class="writer">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px">
+        <!-- <img src="/img/1.jpg" alt width="80px" /> -->
+        <img :src="newsrc" />
       </a>
       <el-button
         type="success"
@@ -19,7 +25,8 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-      >{{ isFollowed ? "取关" : "关注" }}</el-button>
+        >{{ isFollowed ? "取关" : "关注" }}</el-button
+      >
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
@@ -34,7 +41,11 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
+          <div
+            class="xihuan_button"
+            @click="likeArticle"
+            :class="{ iflike: iflike() }"
+          >
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -52,9 +63,15 @@
 
     <div class="pinglun">
       <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px">
+        <img src="/img/1.jpg" alt width="80px" />
       </a>
-      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入内容"
+        v-model="textarea"
+        class="textbox"
+      ></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -75,6 +92,7 @@
 export default {
   data() {
     return {
+      newsrc: "",
       listSelected: "",
       lists: [],
       textarea: "",
@@ -146,11 +164,31 @@ export default {
   mounted() {},
   watch: {
     uid(newValue, oldValue) {
+      function transformArrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = new Uint8Array(buffer);
+        for (var len = bytes.byteLength, i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+      }
       if (newValue != "") {
         this.$axios.get("/user/" + this.uid).then(res => {
           console.log(res);
           this.user = res.data.data;
+          // console.log(this.user.avatar.toString());
+
           this.isFollowed = this.iffollowing();
+        });
+        this.$axios.get("/user/avatar/" + this.uid).then(res => {
+          console.log(res);
+          // this.user = res.data.data;
+          // console.log(this.user.avatar.toString());
+
+          this.newsrc =
+            "data:image/jpeg;base64," +
+            transformArrayBufferToBase64(res.data.img.data.data);
+          // });
         });
         this.$axios.get("/api/lists/" + this.$store.state.userid).then(res => {
           console.log(res);

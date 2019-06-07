@@ -29,7 +29,7 @@
 
     <el-upload
       class="avatar-uploader"
-      action="/api/uploadimage"
+      action="/api/user/image"
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"

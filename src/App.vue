@@ -5,17 +5,24 @@
       <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 16, offset: 4 }">
         <div>
           <div id="nav">
-            <div class="link" @click="$router.push('/myFollowing')">我的关注</div>
+            <div class="link" @click="$router.push('/myFollowing')">
+              我的关注
+            </div>
             <div class="link" @click="$router.push('/mylists')">我的文集</div>
             <div class="link" @click="$router.push('/list')">全部文章列表</div>
             <div class="link" @click="$router.push('/edit')">发布新文章</div>
 
             <div class="link" @click="$router.push('/signup')">注册</div>
             <div class="link" @click="$router.push('/login')">登录</div>
+
             <div class="link" @click="$router.push('/upload')">上传组件</div>
+
+            <div class="link" @click="$router.push('/useredit')">
+              用户信息修改
+            </div>
           </div>
 
-          <router-view/>
+          <router-view />
         </div>
       </el-col>
     </el-row>

@@ -40,7 +40,13 @@ export default new Router({
       name: "upload",
       path: "/upload",
       component: () =>
-        import(/* webpackChunkName: "signup" */ "./components/upload.vue")
+        import(/* webpackChunkName: "upload" */ "./components/upload.vue")
+    },
+    {
+      name: "useredit",
+      path: "/useredit",
+      component: () =>
+        import(/* webpackChunkName: "useredit" */ "./jianshu/userinfoEdit.vue")
     },
     {
       name: "mylists",
@@ -64,9 +70,8 @@ export default new Router({
       name: "myfollowing",
       path: "/myfollowing",
       component: () =>
-        import(
-          /* webpackChunkName: "myfollowing" */ "./jianshu/myfollowing.vue"
-        )
+        import(/* webpackChunkName: "myfollowing" */
+        "./jianshu/myfollowing.vue")
     }
   ]
 });
