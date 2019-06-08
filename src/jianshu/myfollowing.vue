@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="simple">
     <simple v-for="x in lists" :mydata="x" :key="x.id" />
   </div>
 </template>
@@ -35,4 +35,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.simple {
+  width: 80%;
+  margin-left: 10%;
+}
+</style>

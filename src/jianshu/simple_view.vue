@@ -8,12 +8,14 @@
       <div class="markdown-body">{{ mydata.output }}</div>
       <div class="tail">
         <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
-        <span class="el-icon-user info">{{ mydata.username }}</span>
-        <span class="el-icon-view info">{{ mydata.clickCount }}</span>
-        <span class="el-icon-chat-line-square info">{{
-          mydata.comment.length
-        }}</span>
-        <span class="info">❤{{ mydata.liked.length }}</span>
+        <i class="el-icon-user"></i>
+        <span class="info">{{ mydata.username }}</span>
+        <i class="el-icon-view"></i>
+        <span class="info">{{ mydata.clickCount }}</span>
+        <i class="el-icon-chat-line-square"></i>
+        <span class="info">{{ mydata.comment.length }}</span>
+        <span>❤</span>
+        <span class="info">{{ mydata.liked.length }}</span>
 
         <span class="time">{{ datestring }}</span>
       </div>
@@ -82,6 +84,8 @@ export default {
   text-align: center;
   width: 100%;
   .left {
+    overflow: hidden;
+    white-space: nowrap;
     text-align: left;
     display: inline-block;
     position: relative;
@@ -94,6 +98,7 @@ export default {
     //   top: 30%;
     // }
     h2 {
+      margin: 0 5px;
       cursor: pointer;
       display: inline-block;
       &:hover {
@@ -102,6 +107,7 @@ export default {
     }
     .markdown-body {
       overflow: hidden;
+      padding: 18px 0;
       // white-space: nowrap;
     }
     .name {
@@ -113,6 +119,7 @@ export default {
       .time {
         float: right;
         margin-right: 20px;
+        color: rgb(179, 149, 149);
         // text-align: right;
       }
     }
@@ -122,7 +129,8 @@ export default {
   //   width: 20%;
   // }
   .info {
-    padding: 5px 15px 5px 0;
+    padding: 5px 25px 5px 0;
+    margin-left: 6px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav">
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
@@ -42,7 +42,7 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
-      debugger;
+
       if (key == "logout") {
         this.$router.push("/");
         this.$store.commit("logout_delToken");
@@ -61,4 +61,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.nav {
+  margin-bottom: 40px;
+}
+</style>

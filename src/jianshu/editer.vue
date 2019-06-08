@@ -90,7 +90,7 @@ export default {
         // token: token,
         title: this.title,
         content: this.content,
-        output: this.content.substring(0, 120) + "...",
+        output: this.content.substring(0, 120),
         time: new Date(),
         count_some: 0,
         count_view: 0,

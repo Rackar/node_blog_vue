@@ -1,17 +1,38 @@
 <template>
-  <div>
-    创建文集
-    <el-input v-model="listname" placeholder></el-input>
-    <el-button @click="saveList">添加</el-button>
+  <div class="mylists">
+    <div class="titleout">
+      创建文集
+      <el-input
+        v-model="listname"
+        placeholder="回车即可添加"
+        class="title"
+        @keyup.native.13="saveList"
+      ></el-input>
+      <el-button @click="saveList">添加</el-button>
+    </div>
+
     <div v-for="item in lists" :key="item._id" class="list">
       <h3>
         文集名称 {{ item.name }}
-        <el-button @click="delList(item)">删除文集</el-button>
+        <el-button @click="delList(item)" size="medium" round
+          >删除文集</el-button
+        >
+        <!-- <el-button @click="delList(item)">删除文集</el-button> -->
       </h3>
       <div v-for="article in item.articles" :key="article.id">
         <div class="article">
-          <span @click="$router.push('/article/' + article.id)">文章标题 {{ article.title }}</span>
-          <el-button @click="delArticleFromList(article,item._id)">删除文集</el-button>
+          <span @click="$router.push('/article/' + article.id)"
+            >文章标题 {{ article.title }}</span
+          >
+          <el-button
+            @click="delArticleFromList(article, item._id)"
+            size="small"
+            round
+            >移除文章</el-button
+          >
+          <!-- <el-button @click="delArticleFromList(article, item._id)"
+            >移除文章</el-button
+          >-->
         </div>
       </div>
     </div>
@@ -56,6 +77,7 @@ export default {
               message: "文集新增成功"
             });
             this.getAllLists();
+            this.listname = "";
           } else {
             this.$message({
               showClose: true,
@@ -105,12 +127,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list {
-  margin: 40px;
-  font-size: 20px;
-  border: 1px gray solid;
-  .article {
-    cursor: pointer;
+.mylists {
+  .titleout {
+    // margin-top: 40px;
+    .title {
+      width: 45%;
+    }
+  }
+
+  .list {
+    margin: 40px;
+    font-size: 20px;
+    border: 1px gray solid;
+    .article {
+      cursor: pointer;
+      line-height: 45px;
+    }
   }
 }
 </style>

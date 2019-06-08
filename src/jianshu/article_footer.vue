@@ -1,7 +1,7 @@
 <template>
   <div class="myfooter">
-    <el-button type="danger" round>赞赏支持</el-button>
-    <el-button @click="addToList">加入文集</el-button>
+    <!-- <el-button type="danger" round>赞赏支持</el-button> -->
+
     <el-select v-model="listSelected" placeholder="请选择">
       <el-option
         v-for="item in lists"
@@ -10,6 +10,7 @@
         :value="item._id"
       ></el-option>
     </el-select>
+    <el-button @click="addToList">加入文集</el-button>
     <div class="jubao">
       <!-- <span class="right">举报</span>
       <span class="left">文集</span>-->
@@ -185,7 +186,7 @@ export default {
           console.log(res);
           // this.user = res.data.data;
           // console.log(this.user.avatar.toString());
-          if (res.data.status == 1) {
+          if (res.data && res.data.img) {
             this.newsrc =
               "data:image/jpeg;base64," +
               transformArrayBufferToBase64(res.data.img.data.data);
@@ -207,6 +208,11 @@ export default {
       console.log(this.listSelected);
       //判断选中的id和已有id中的article重不重
       // debugger;
+      if (!this.listSelected) {
+        this.$message.warning("请先选择文集");
+
+        return;
+      }
       var listSel = this.lists.find(list => list._id == this.listSelected);
       var contains = listSel.articles.find(arti => arti.id == this.aid);
       if (contains) {

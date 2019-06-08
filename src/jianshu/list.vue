@@ -111,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 .list {
   .page {
-    margin-top: 30px;
+    // margin-top: 30px;
   }
   .simple {
     margin-left: 10%;
