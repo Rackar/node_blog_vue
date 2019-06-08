@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="list">
     <el-pagination
+      class="page"
       :hide-on-single-page="true"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -10,7 +11,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="lists.length"
     ></el-pagination>
-    <simple v-for="x in pagedLists" :mydata="x" :key="x.id" />
+    <simple class="simple" v-for="x in pagedLists" :mydata="x" :key="x.id" />
   </div>
 </template>
 
@@ -107,4 +108,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list {
+  .page {
+    margin-top: 30px;
+  }
+  .simple {
+    margin-left: 10%;
+    width: 80%;
+    text-align: center;
+  }
+}
+</style>

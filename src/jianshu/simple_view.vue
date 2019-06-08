@@ -2,22 +2,20 @@
   <div class="list">
     <div class="left">
       <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
-      <div>发布时间：{{ datestring }}</div>
+      <!-- <div class="time">发布时间：{{ datestring }}</div> -->
       <!-- <div>{{ mydata.content }}</div> -->
       <!-- <div class="name">{{ mydata.username }}</div> -->
       <div class="markdown-body">{{ mydata.output }}</div>
-      <div>
+      <div class="tail">
         <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
         <span class="el-icon-user info">{{ mydata.username }}</span>
-        <span class="el-icon-view info">
-          {{ mydata.clickCount }}
-        </span>
-        <span class="el-icon-chat-line-square info">
-          {{ mydata.comment.length }}
-        </span>
+        <span class="el-icon-view info">{{ mydata.clickCount }}</span>
+        <span class="el-icon-chat-line-square info">{{
+          mydata.comment.length
+        }}</span>
         <span class="info">❤{{ mydata.liked.length }}</span>
 
-        <span>{{ mydata.time }}</span>
+        <span class="time">{{ datestring }}</span>
       </div>
     </div>
   </div>
@@ -82,7 +80,7 @@ export default {
   margin: 10px 3px;
   // margin-left: 30px;
   text-align: center;
-  // width: 50%;
+  width: 100%;
   .left {
     text-align: left;
     display: inline-block;
@@ -90,6 +88,11 @@ export default {
     width: 80%;
     padding-bottom: 20px;
     border-bottom: 1px rgb(197, 196, 196) solid;
+    // .time {
+    //   position: absolute;
+    //   right: 2%;
+    //   top: 30%;
+    // }
     h2 {
       cursor: pointer;
       display: inline-block;
@@ -105,6 +108,13 @@ export default {
       position: absolute;
       right: 20px;
       top: 20px;
+    }
+    .tail {
+      .time {
+        float: right;
+        margin-right: 20px;
+        // text-align: right;
+      }
     }
   }
   // .right {

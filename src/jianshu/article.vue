@@ -4,8 +4,8 @@
     <div class="info">
       本文浏览次数：{{ article.clickCount }}
       <el-button v-show="myUserId == uid" @click="editArticle">编辑</el-button>
-      <el-button v-show="myUserId == uid" @click="delArticle">删除</el-button
-      ><!-- <div class="left">图片</div>
+      <el-button v-show="myUserId == uid" @click="delArticle">删除</el-button>
+      <!-- <div class="left">图片</div>
       <div class="middle">
         <div class="top"></div>
         <div class="bottle"></div>
@@ -97,6 +97,7 @@ export default {
       this.$axios
         .get("http://localhost:3000/article/" + this.id)
         .then(result => {
+          // debugger;
           console.log(result);
           if (result.data.status === 1) {
             this.article = result.data.data;

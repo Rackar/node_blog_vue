@@ -42,6 +42,7 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+      debugger;
       if (key == "logout") {
         this.$router.push("/");
         this.$store.commit("logout_delToken");
@@ -52,7 +53,8 @@ export default {
           message: "已注销用户登录"
         });
       } else {
-        this.$router.push("/" + key === "/" ? "" : key);
+        var url = "/" + (key === "/" ? "" : key);
+        this.$router.push(url);
       }
     }
   }
