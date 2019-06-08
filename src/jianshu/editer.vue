@@ -36,6 +36,7 @@ export default {
   computed: {},
   mounted() {
     if (this.$route.params.id) {
+      debugger;
       this.$axios
         .get("http://localhost:3000/article/" + this.$route.params.id)
         .then(result => {
@@ -48,6 +49,9 @@ export default {
             this.title = this.article.title;
           }
         });
+    } else if (this.$store.state.temp.ifTemp) {
+      this.content = this.$store.state.temp.content;
+      this.title = this.$store.state.temp.title;
     }
     // console.log(this.simplemde);
     // this.simplemde.togglePreview();
@@ -76,7 +80,10 @@ export default {
     save() {
       // console.log(this.content);
       // this.output = this.simplemde.markdown(this.content);
-      // this.$store.commit("saveTempContent", this.output);
+      this.$store.commit("saveTempContent", {
+        title: this.title,
+        content: this.content
+      });
       // var token = window.localStorage.getItem("token");
 
       let body = {
@@ -90,6 +97,7 @@ export default {
         count_comit: 0,
         count_like: 0
       };
+
       if (this.$route.params.id) {
         body._id = this.$route.params.id;
         body.userid = this.article.userid;

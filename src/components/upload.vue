@@ -4,7 +4,7 @@
       <button type="submit">提交</button>
   </form>-->
   <div>
-    <el-upload
+    <!-- <el-upload
       class="avatar-uploader"
       action="/profile"
       :on-preview="handlePreview"
@@ -24,8 +24,7 @@
       </div>
     </el-upload>
     <ol>
-      <!-- <li v-for="result in results">{{ result.path }}</li> -->
-    </ol>
+    </ol>-->
 
     <el-upload
       class="avatar-uploader"
@@ -41,10 +40,9 @@
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
     {{ this.done }}
-
-    <h3>测试拉取图片</h3>
-    <el-button @click="getImage">获取</el-button>
-    <img :src="newsrc" />
+    <!-- <h3>测试拉取图片</h3>
+    <el-button @click="getImage">获取</el-button>-->
+    <!-- <img :src="newsrc" /> -->
   </div>
 </template>
 
@@ -120,8 +118,12 @@ export default {
       // debugger;
       this.imageUrl = URL.createObjectURL(file.raw);
       // this.results.push(res.data);
-      this.done = res.data.path;
-      this.$message.success("上传成功");
+      if (res.data && res.data.path) {
+        this.done = res.data.path;
+        this.$message.success("上传成功");
+      } else {
+        this.$message.error("上传失败");
+      }
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";

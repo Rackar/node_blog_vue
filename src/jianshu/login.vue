@@ -2,7 +2,11 @@
   <div>
     <!-- <h2 style="text-align:center">登录</h2> -->
     <el-row :gutter="10">
-      <el-col :xs="{span:18,offset:3}" :sm="{span:12,offset:6}" :md="{span:10,offset:7}">
+      <el-col
+        :xs="{ span: 18, offset: 3 }"
+        :sm="{ span: 12, offset: 6 }"
+        :md="{ span: 10, offset: 7 }"
+      >
         <el-form
           ref="form"
           :model="form"
@@ -23,7 +27,9 @@
         <el-button @click="$router.replace('/login')">注册</el-button>
           </el-form-item>-->
         </el-form>
-        <el-button type="primary" round @click="onSubmit('form')">登录</el-button>
+        <el-button type="primary" round @click="onSubmit('form')"
+          >登录</el-button
+        >
       </el-col>
     </el-row>
   </div>
@@ -90,6 +96,12 @@ export default {
 
                 // this.$store.state.token = token;
                 this.$store.commit("login_saveToken", token);
+
+                console.log(this.$route.query);
+                let previousUrl = "/";
+                if (this.$route.query && this.$route.query.redirect)
+                  previousUrl = this.$route.query.redirect;
+                this.$router.push(previousUrl);
               } else {
                 this.loading = false;
                 this.$message({

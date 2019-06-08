@@ -5,7 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    output: "",
+    temp: {
+      ifTemp: false,
+      title: "",
+      content: ""
+    },
     token: "",
     userid: "",
     username: ""
@@ -14,6 +18,7 @@ export default new Vuex.Store({
     login_saveToken(state, data) {
       state.token = data;
       window.localStorage.setItem("token", data);
+
       function parseJwt(token) {
         var base64Url = token.split(".")[1];
         var base64 = decodeURIComponent(
@@ -32,8 +37,18 @@ export default new Vuex.Store({
       state.userid = dd.userid;
       state.username = dd.username;
     },
+    logout_delToken(state) {
+      state.token = "";
+      window.localStorage.removeItem("token");
+
+      // console.log(dd);
+      state.userid = "";
+      state.username = "";
+    },
     saveTempContent(state, data) {
-      state.output = data;
+      state.temp.title = data.title;
+      state.temp.content = data.content;
+      state.temp.ifTemp = true;
     }
   },
   actions: {}

@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <!-- <myheader></myheader> -->
+    <el-row :gutter="10">
+      <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 16, offset: 4 }">
+        <navBar></navBar>
+      </el-col>
+    </el-row>
     <el-row :gutter="10">
       <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 16, offset: 4 }">
         <div>
-          <div id="nav">
+          <!-- <div id="nav">
             <div class="link" @click="$router.push('/myFollowing')">
               我的关注
             </div>
@@ -20,7 +24,7 @@
             <div class="link" @click="$router.push('/useredit')">
               用户信息修改
             </div>
-          </div>
+          </div>-->
 
           <router-view />
         </div>
@@ -29,10 +33,10 @@
   </div>
 </template>
 <script>
-// import myheader from "./header/header.vue";
+import navBar from "./components/navBar.vue";
 export default {
   components: {
-    // myheader
+    navBar
   },
   mounted() {
     var token = window.localStorage.token;

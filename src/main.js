@@ -33,8 +33,11 @@ axios.interceptors.response.use(
       localStorage.clear();
       router.replace({
         path: "/login",
-        query: { redirect: router.currentRoute.fullPath }
+        query: {
+          redirect: router.currentRoute.fullPath
+        }
       });
+      ElementUI.Message.error("请登录后操作");
     }
     return response;
   },

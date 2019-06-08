@@ -34,8 +34,9 @@
         <!-- ，获得了{{ user.count.liked }} 个喜欢 -->
       </div>
       <div class="info">
-        微信公众号【程序员江湖】 作者黄小斜，斜杠青年，某985硕士，阿里 Java
-        研发工程师，于 2018 年秋招拿到
+        <!-- 微信公众号【程序员江湖】 作者黄小斜，斜杠青年，某985硕士，阿里 Java
+        研发工程师，于 2018 年秋招拿到-->
+        {{ user.info }}
       </div>
     </div>
     <div class="buttons">
@@ -184,10 +185,13 @@ export default {
           console.log(res);
           // this.user = res.data.data;
           // console.log(this.user.avatar.toString());
-
-          this.newsrc =
-            "data:image/jpeg;base64," +
-            transformArrayBufferToBase64(res.data.img.data.data);
+          if (res.data.status == 1) {
+            this.newsrc =
+              "data:image/jpeg;base64," +
+              transformArrayBufferToBase64(res.data.img.data.data);
+          } else {
+            // this.$message.
+          }
           // });
         });
         this.$axios.get("/api/lists/" + this.$store.state.userid).then(res => {

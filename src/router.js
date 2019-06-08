@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/login"
+      redirect: "/list"
       // name: "login",
       // component: () => import("./jianshu/login.vue")
     },

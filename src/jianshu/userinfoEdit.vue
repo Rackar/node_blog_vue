@@ -100,6 +100,11 @@ export default {
       };
       this.$axios.put("/api/user", body).then(res => {
         console.log(res);
+        if (res.data.status == 1) {
+          this.$message.success(res.data.msg);
+        } else {
+          this.$message.error(res.data.msg);
+        }
       });
       //   this.$refs[formName].validate(valid => {
       //     if (valid) {
