@@ -179,22 +179,26 @@ export default {
           console.log(res);
           this.user = res.data.data;
           // console.log(this.user.avatar.toString());
-
+          if (this.user.avatar)
+            this.$axios
+              .get("/getoneimage/id/" + this.user.avatar)
+              .then(res2 => {
+                console.log(res2);
+                // this.user = res.data.data;
+                // console.log(this.user.avatar.toString());
+                if (res2.data && res2.data.img) {
+                  this.newsrc =
+                    "data:image/jpeg;base64," +
+                    transformArrayBufferToBase64(res2.data.img.data.data);
+                } else {
+                  // this.$message.
+                }
+                // });
+              });
           this.isFollowed = this.iffollowing();
         });
-        this.$axios.get("/user/avatar/" + this.uid).then(res => {
-          console.log(res);
-          // this.user = res.data.data;
-          // console.log(this.user.avatar.toString());
-          if (res.data && res.data.img) {
-            this.newsrc =
-              "data:image/jpeg;base64," +
-              transformArrayBufferToBase64(res.data.img.data.data);
-          } else {
-            // this.$message.
-          }
-          // });
-        });
+        // this.$axios.get("/user/avatar/" + this.uid).then(res => {
+
         this.$axios.get("/api/lists/" + this.$store.state.userid).then(res => {
           console.log(res);
           if (res.data.status === 1 && res.data.msg == "拉取文集成功")

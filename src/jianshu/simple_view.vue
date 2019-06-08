@@ -1,13 +1,37 @@
 <template>
   <div class="list">
-    <div class="left">
+    <el-row :gutter="10">
+      <el-col class="left" v-bind:class="{ active: newsrc }">
+        <!-- <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 20, offset: 0 }"> -->
+        <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
+
+        <div class="markdown-body">{{ mydata.output }}</div>
+
+        <div class="tail">
+          <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
+          <i class="el-icon-user"></i>
+          <span class="info">{{ mydata.username }}</span>
+          <i class="el-icon-view"></i>
+          <span class="info">{{ mydata.clickCount }}</span>
+          <i class="el-icon-chat-line-square"></i>
+          <span class="info">{{ mydata.comment.length }}</span>
+          <span>❤</span>
+          <span class="info">{{ mydata.liked.length }}</span>
+
+          <span class="time">{{ datestring }}</span>
+        </div>
+      </el-col>
+      <!-- <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 4, offset: 0 }"> -->
+      <el-col v-if="newsrc" class="right">
+        <img :src="newsrc" class="previewImg" />
+      </el-col>
+    </el-row>
+    <!-- <div class="left">
       <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
-      <!-- <div class="time">发布时间：{{ datestring }}</div> -->
-      <!-- <div>{{ mydata.content }}</div> -->
-      <!-- <div class="name">{{ mydata.username }}</div> -->
+
       <div class="markdown-body">{{ mydata.output }}</div>
+      <img :src="newsrc" class="previewImg" />
       <div class="tail">
-        <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
         <i class="el-icon-user"></i>
         <span class="info">{{ mydata.username }}</span>
         <i class="el-icon-view"></i>
@@ -19,7 +43,7 @@
 
         <span class="time">{{ datestring }}</span>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -28,10 +52,34 @@ export default {
   methods: {},
   data() {
     return {
-      content: {}
+      content: {},
+      newsrc: ""
     };
   },
   mounted() {
+    function transformArrayBufferToBase64(buffer) {
+      var binary = "";
+      var bytes = new Uint8Array(buffer);
+      for (var len = bytes.byteLength, i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return window.btoa(binary);
+    }
+    this.$axios
+      .get("/getoneimage/id/" + this.mydata.previewImageId)
+      .then(res => {
+        console.log(res);
+        // this.user = res.data.data;
+        // console.log(this.user.avatar.toString());
+        if (res.data && res.data.img) {
+          this.newsrc =
+            "data:image/jpeg;base64," +
+            transformArrayBufferToBase64(res.data.img.data.data);
+        } else {
+          // this.$message.
+        }
+        // });
+      });
     // this.content = this.simplemde.markdown(this.mydata.content);
   },
   props: {
@@ -83,15 +131,20 @@ export default {
   // margin-left: 30px;
   text-align: center;
   width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px rgb(197, 196, 196) solid;
   .left {
     overflow: hidden;
     white-space: nowrap;
     text-align: left;
     display: inline-block;
     position: relative;
-    width: 80%;
-    padding-bottom: 20px;
-    border-bottom: 1px rgb(197, 196, 196) solid;
+    // width: 80%;
+
+    &.active {
+      width: 70%;
+    }
+
     // .time {
     //   position: absolute;
     //   right: 2%;
@@ -124,10 +177,12 @@ export default {
       }
     }
   }
-  // .right {
-  //   display: inline-block;
-  //   width: 20%;
-  // }
+  .right {
+    width: 30%;
+    .previewImg {
+      width: 200px;
+    }
+  }
   .info {
     padding: 5px 25px 5px 0;
     margin-left: 6px;
