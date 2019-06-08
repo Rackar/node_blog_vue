@@ -14,9 +14,10 @@
       <el-form-item label="是否插入预览图">
         <el-checkbox v-model="formInline.active">开启</el-checkbox>
       </el-form-item>
-      <el-form-item label="地址url">
-        <el-input v-model="formInline.url" placeholder="http://"></el-input>
-      </el-form-item>
+      <myupload
+        :uploadType="{ type: 'articleImage' }"
+        @uploadedImageId="getImageId"
+      ></myupload>
     </el-form>
     <!-- 创建文集
     <el-input v-model="listname" placeholder></el-input>
@@ -26,12 +27,14 @@
 </template>
 
 <script>
+import myupload from "../components/uploadnew";
 import Editor from "@toast-ui/vue-editor/src/Editor.vue";
 import Viewer from "@toast-ui/vue-editor/src/Viewer.vue";
 export default {
   components: {
     Editor,
-    Viewer
+    Viewer,
+    myupload
   },
   computed: {},
   mounted() {
@@ -58,6 +61,7 @@ export default {
   },
   data() {
     return {
+      previewImageId: "",
       listname: "",
       formInline: {
         active: false,
@@ -77,6 +81,9 @@ export default {
     };
   },
   methods: {
+    getImageId(id) {
+      this.previewImageId = id;
+    },
     save() {
       // console.log(this.content);
       // this.output = this.simplemde.markdown(this.content);
@@ -95,7 +102,8 @@ export default {
         count_some: 0,
         count_view: 0,
         count_comit: 0,
-        count_like: 0
+        count_like: 0,
+        previewImageId: this.previewImageId
       };
 
       if (this.$route.params.id) {
