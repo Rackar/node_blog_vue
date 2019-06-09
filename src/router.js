@@ -19,6 +19,12 @@ export default new Router({
         import(/* webpackChunkName: "editer" */ "./jianshu/editer.vue")
     },
     {
+      name: "vditor",
+      path: "/vditor",
+      component: () =>
+        import(/* webpackChunkName: "vditor" */ "./components/editor.vue")
+    },
+    {
       name: "editArticle",
       path: "/edit/:id",
       component: () =>
