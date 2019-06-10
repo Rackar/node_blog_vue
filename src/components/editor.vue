@@ -10,18 +10,14 @@
       mode="markdown"
       @load="onEditorLoad"
     />-->
-    <div id="vditor"></div>
-    预览窗口：
+    <div id="vditor"></div>预览窗口：
     <div class="vditor-preview vditor-reset" v-html="html"></div>
     <!-- <div id="preview"></div> -->
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="是否插入预览图">
         <el-checkbox v-model="formInline.active">开启</el-checkbox>
       </el-form-item>
-      <myupload
-        :uploadType="{ type: 'articleImage' }"
-        @uploadedImageId="getImageId"
-      ></myupload>
+      <myupload :uploadType="{ type: 'articleImage' }" @uploadedImageId="getImageId"></myupload>
     </el-form>
     <!-- 创建文集
     <el-input v-model="listname" placeholder></el-input>
@@ -134,12 +130,16 @@ export default {
     getImageId(id) {
       this.previewImageId = id;
     },
+
     save() {
       this.$store.commit("saveTempContent", {
         title: this.title,
         content: this.content
       });
-
+      let title = this.vditor.getHTML().then(res => {
+        console.log(res);
+      });
+      debugger;
       let body = {
         title: this.title,
         content: this.content,
@@ -217,18 +217,17 @@ export default {
     },
     newsave() {
       console.log(this.vditor.getValue());
-      let that = this;
-      async function getH() {
-        try {
-          debugger;
-          const file = await that.vditor.getHTML();
-          console.log(file.toString());
-          that.html = file;
-        } catch (e) {
-          console.log("出错啦", e);
-        }
-      }
-      getH();
+      // let that = this;
+      // async function getHtml() {
+      //   let result = await that.vditor.getHTML();
+      //   return result;
+      // }
+      // this.html = getHtml();
+
+      this.vditor.getHTML().then(res => {
+        this.html = res;
+        console.log(res);
+      });
     },
     onEditorLoad() {}
   }

@@ -1,25 +1,11 @@
 <template>
   <div>
-    <el-form
-      :model="ruleForm"
-      status-icon
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
+    <el-form :model="ruleForm" status-icon ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="修改密码" prop="pass">
-        <el-input
-          type="password"
-          v-model="ruleForm.pass"
-          autocomplete="off"
-        ></el-input>
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input
-          type="password"
-          v-model="ruleForm.checkPass"
-          autocomplete="off"
-        ></el-input>
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="用户名" prop="username">
         <el-input v-model.number="ruleForm.username"></el-input>
@@ -28,9 +14,7 @@
         <el-input type="textarea" v-model="ruleForm.info"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >提交</el-button
-        >
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -101,9 +85,9 @@ export default {
       this.$axios.put("/api/user", body).then(res => {
         console.log(res);
         if (res.data.status == 1) {
-          this.$message.success(res.data.msg);
+          this.$mymess.success(res.data.msg);
         } else {
-          this.$message.error(res.data.msg);
+          this.$mymess.error(res.data.msg);
         }
       });
       //   this.$refs[formName].validate(valid => {

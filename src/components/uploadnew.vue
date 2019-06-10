@@ -11,7 +11,7 @@
       :headers="headers"
       :data="uploadData"
     >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+      <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
     {{ this.done }}
@@ -109,12 +109,22 @@ export default {
       console.log(res.data);
       if (res.data && res.data.path) {
         this.done = res.data.path;
-        this.$message.success("上传成功");
+        this.$message({
+          showClose: true,
+          duration: 1000,
+          type: "success",
+          message: "上传成功"
+        });
         if (res.previewImageId) {
           this.$emit("uploadedImageId", res.previewImageId);
         }
       } else {
-        this.$message.error("上传失败");
+        this.$message({
+          showClose: true,
+          duration: 1000,
+          type: "error",
+          message: "上传失败"
+        });
       }
     },
     beforeAvatarUpload(file) {
@@ -129,10 +139,20 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message({
+          showClose: true,
+          duration: 1000,
+          type: "error",
+          message: "上传头像图片只能是 JPG 格式!"
+        });
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message({
+          showClose: true,
+          duration: 1000,
+          type: "error",
+          message: "上传头像图片大小不能超过 2MB!"
+        });
       }
       return isJPG && isLt2M;
     }

@@ -49,6 +49,35 @@ axios.interceptors.response.use(
 
 Vue.prototype.$axios = axios;
 
+const mymess = {
+  success: function(message) {
+    ElementUI.Message({
+      showClose: true,
+      duration: 1000,
+      type: "success",
+      message: message
+    });
+  },
+  error: function(message) {
+    ElementUI.Message({
+      showClose: true,
+      duration: 1000,
+      type: "error",
+      message: message
+    });
+  },
+  warning: function(message) {
+    ElementUI.Message({
+      showClose: true,
+      duration: 1000,
+      type: "warning",
+      message: message
+    });
+  }
+};
+
+Vue.prototype.$mymess = mymess;
+
 Vue.config.productionTip = false;
 // import VueSimplemde from "vue-simplemde";
 // import "simplemde/dist/simplemde.min.css";
