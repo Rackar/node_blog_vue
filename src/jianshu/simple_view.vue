@@ -23,7 +23,7 @@
       </el-col>
       <!-- <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 4, offset: 0 }"> -->
       <el-col v-if="newsrc" class="right">
-        <img :src="newsrc" class="previewImg" />
+        <img :src="newsrc" class="previewImg">
       </el-col>
     </el-row>
     <!-- <div class="left">
@@ -65,21 +65,22 @@ export default {
       }
       return window.btoa(binary);
     }
-    this.$axios
-      .get("/getoneimage/id/" + this.mydata.previewImageId)
-      .then(res => {
-        console.log(res);
-        // this.user = res.data.data;
-        // console.log(this.user.avatar.toString());
-        if (res.data && res.data.img) {
-          this.newsrc =
-            "data:image/jpeg;base64," +
-            transformArrayBufferToBase64(res.data.img.data.data);
-        } else {
-          // this.$message.
-        }
-        // });
-      });
+    if (this.mydata.previewImageId)
+      this.$axios
+        .get("/getoneimage/id/" + this.mydata.previewImageId)
+        .then(res => {
+          console.log(res);
+          // this.user = res.data.data;
+          // console.log(this.user.avatar.toString());
+          if (res.data && res.data.img) {
+            this.newsrc =
+              "data:image/jpeg;base64," +
+              transformArrayBufferToBase64(res.data.img.data.data);
+          } else {
+            // this.$message.
+          }
+          // });
+        });
     // this.content = this.simplemde.markdown(this.mydata.content);
   },
   props: {
