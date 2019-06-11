@@ -22,7 +22,7 @@
     <!-- 创建文集
     <el-input v-model="listname" placeholder></el-input>
     <el-button @click="saveList">添加</el-button>-->
-    <el-button @click="newsave">保存</el-button>
+    <el-button @click="save">保存</el-button>
   </div>
 </template>
 
@@ -50,11 +50,11 @@ export default {
       },
       toolbar: []
     };
-    this.initVditor();
-    this.$nextTick(async () => {
-      await this.vditor.getHTML(true);
-      this.isLoading = false;
-    });
+    // this.initVditor();
+    // this.$nextTick(async () => {
+    //   await this.vditor.getHTML(true);
+    //   this.isLoading = false;
+    // });
     const vditor = new Vditor("vditor", options);
     // const vditor2 = new Vditor("preview", options2);
     this.vditor = vditor;
@@ -132,40 +132,52 @@ export default {
     },
 
     save() {
-      this.$store.commit("saveTempContent", {
-        title: this.title,
-        content: this.content
-      });
-      let title = this.vditor.getHTML().then(res => {
+      this.content = this.vditor.getValue();
+      this.vditor.getHTML().then(res => {
+        this.html = res;
+        // this.content = res;
         console.log(res);
-      });
-      debugger;
-      let body = {
-        title: this.title,
-        content: this.content,
-        output: this.content.substring(0, 120),
-        time: new Date(),
-        count_some: 0,
-        count_view: 0,
-        count_comit: 0,
-        count_like: 0,
-        previewImageId: this.previewImageId
-      };
+        this.$store.commit("saveTempContent", {
+          title: this.title,
+          content: this.content
+        });
 
-      if (this.$route.params.id) {
-        body._id = this.$route.params.id;
-        body.userid = this.article.userid;
-        this.$axios.put("/api/article", body).then(
-          res => {
-            console.log(res);
-            if (res.data && res.data.status == 1) {
-              this.$message({
-                showClose: true,
-                duration: 1000,
-                type: "success",
-                message: "文章编辑成功"
-              });
-            } else {
+        debugger;
+        let body = {
+          title: this.title,
+          content: this.content,
+          output: this.html,
+          time: new Date(),
+          count_some: 0,
+          count_view: 0,
+          count_comit: 0,
+          count_like: 0,
+          previewImageId: this.previewImageId
+        };
+
+        if (this.$route.params.id) {
+          body._id = this.$route.params.id;
+          body.userid = this.article.userid;
+          this.$axios.put("/api/article", body).then(
+            res => {
+              console.log(res);
+              if (res.data && res.data.status == 1) {
+                this.$message({
+                  showClose: true,
+                  duration: 1000,
+                  type: "success",
+                  message: "文章编辑成功"
+                });
+              } else {
+                this.$message({
+                  showClose: true,
+                  duration: 1000,
+                  type: "error",
+                  message: "文章编辑失败"
+                });
+              }
+            },
+            err => {
               this.$message({
                 showClose: true,
                 duration: 1000,
@@ -173,29 +185,29 @@ export default {
                 message: "文章编辑失败"
               });
             }
-          },
-          err => {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "error",
-              message: "文章编辑失败"
-            });
-          }
-        );
-      } else {
-        // body = JSON.stringify(body);
-        this.$axios.post("/api/article", body).then(
-          res => {
-            console.log(res);
-            if (res.data && res.data.status == 1) {
-              this.$message({
-                showClose: true,
-                duration: 1000,
-                type: "success",
-                message: "文章发布成功"
-              });
-            } else {
+          );
+        } else {
+          // body = JSON.stringify(body);
+          this.$axios.post("/api/article", body).then(
+            res => {
+              console.log(res);
+              if (res.data && res.data.status == 1) {
+                this.$message({
+                  showClose: true,
+                  duration: 1000,
+                  type: "success",
+                  message: "文章发布成功"
+                });
+              } else {
+                this.$message({
+                  showClose: true,
+                  duration: 1000,
+                  type: "error",
+                  message: "文章发布失败"
+                });
+              }
+            },
+            err => {
               this.$message({
                 showClose: true,
                 duration: 1000,
@@ -203,17 +215,9 @@ export default {
                 message: "文章发布失败"
               });
             }
-          },
-          err => {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "error",
-              message: "文章发布失败"
-            });
-          }
-        );
-      }
+          );
+        }
+      });
     },
     newsave() {
       console.log(this.vditor.getValue());

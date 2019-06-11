@@ -12,12 +12,11 @@
     />
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="是否插入预览图">
-        <el-checkbox v-model="formInline.active">开启</el-checkbox>
+        <el-checkbox v-model="formInline.active">上传预览图</el-checkbox>
       </el-form-item>
-      <myupload
-        :uploadType="{ type: 'articleImage' }"
-        @uploadedImageId="getImageId"
-      ></myupload>
+      <el-form-item label v-show="formInline.active">
+        <myupload :uploadType="{ type: 'articleImage' }" @uploadedImageId="getImageId"></myupload>
+      </el-form-item>
     </el-form>
     <!-- 创建文集
     <el-input v-model="listname" placeholder></el-input>
@@ -102,9 +101,9 @@ export default {
         count_some: 0,
         count_view: 0,
         count_comit: 0,
-        count_like: 0,
-        previewImageId: this.previewImageId
+        count_like: 0
       };
+      if (formInline.active) body.previewImageId = this.previewImageId;
 
       if (this.$route.params.id) {
         body._id = this.$route.params.id;

@@ -22,7 +22,7 @@ export default new Router({
       name: "vditor",
       path: "/vditor",
       component: () =>
-        import(/* webpackChunkName: "vditor" */ "./components/editor.vue")
+        import(/* webpackChunkName: "vditor" */ "./components/test_vditor.vue")
     },
     {
       name: "editArticle",
@@ -76,8 +76,10 @@ export default new Router({
       name: "myfollowing",
       path: "/myfollowing",
       component: () =>
-        import(/* webpackChunkName: "myfollowing" */
-        "./jianshu/myfollowing.vue")
+        import(
+          /* webpackChunkName: "myfollowing" */
+          "./jianshu/myfollowing.vue"
+        )
     }
   ]
 });

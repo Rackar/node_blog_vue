@@ -135,7 +135,7 @@ export default {
       } else {
         this.uploadData = {};
       }
-      const isJPG = file.type === "image/jpeg";
+      const isJPG = file.type === "image/jpeg" || file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
@@ -143,7 +143,7 @@ export default {
           showClose: true,
           duration: 1000,
           type: "error",
-          message: "上传头像图片只能是 JPG 格式!"
+          message: "上传头像图片只能是 JPG/PNG 格式!"
         });
       }
       if (!isLt2M) {
