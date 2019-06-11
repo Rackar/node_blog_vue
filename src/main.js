@@ -37,7 +37,12 @@ axios.interceptors.response.use(
           redirect: router.currentRoute.fullPath
         }
       });
-      ElementUI.Message.error("请登录后操作");
+      ElementUI.Message({
+        showClose: true,
+        duration: 1000,
+        type: "error",
+        message: "请登录后操作"
+      });
     }
     return response;
   },

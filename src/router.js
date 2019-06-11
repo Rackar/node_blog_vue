@@ -46,7 +46,9 @@ export default new Router({
       name: "upload",
       path: "/upload",
       component: () =>
-        import(/* webpackChunkName: "upload" */ "./components/upload.vue")
+        import(
+          /* webpackChunkName: "upload_avatar" */ "./components/upload_avatar.vue"
+        )
     },
     {
       name: "useredit",

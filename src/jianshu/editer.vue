@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import myupload from "../components/uploadnew";
+import myupload from "../components/upload";
 import Editor from "@toast-ui/vue-editor/src/Editor.vue";
 import Viewer from "@toast-ui/vue-editor/src/Viewer.vue";
 export default {
@@ -103,7 +103,7 @@ export default {
         count_comit: 0,
         count_like: 0
       };
-      if (formInline.active) body.previewImageId = this.previewImageId;
+      if (this.formInline.active) body.previewImageId = this.previewImageId;
 
       if (this.$route.params.id) {
         body._id = this.$route.params.id;

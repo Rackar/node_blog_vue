@@ -88,32 +88,21 @@ export default {
           this.$axios
             .post("/user/signup", form)
             .then(res => {
+              this.loading = false;
               console.log(res);
-              if (res.statusText == "OK") {
-                this.loading = false;
+              // debugger;
+              if (res.data.status == 1 && res.data.msg) {
                 //   this.totalstars -= stars;
                 this.$emit("refreshID", this.form.user_name);
                 this.$message({
                   showClose: true,
                   duration: 1500,
                   type: "success",
-                  message: "注册成功"
+                  message: res.data.msg
                 });
+                this.$router.push("/login");
               } else {
-                if (res.status == 403)
-                  this.$message({
-                    showClose: true,
-                    duration: 1500,
-                    type: "error",
-                    message: "用户名已存在，请更换重试"
-                  });
-                else
-                  this.$message({
-                    showClose: true,
-                    duration: 1500,
-                    type: "error",
-                    message: "注册失败，请报告管理员"
-                  });
+                this.$mymess.error(res.data.msg);
               }
             })
             .catch(err => {
@@ -122,12 +111,13 @@ export default {
                 showClose: true,
                 duration: 1500,
                 type: "error",
-                message: err.response.data
+                message: "服务器错误 " + err.message
               });
               this.loading = false;
             });
         } else {
           console.log("error submit!!");
+          // this.loading = false;
           return false;
         }
       });

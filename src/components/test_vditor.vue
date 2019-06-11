@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import myupload from "../components/uploadnew";
+import myupload from "../components/upload";
 import Vditor from "vditor";
 // import Editor from "@toast-ui/vue-editor/src/Editor.vue";
 // import Viewer from "@toast-ui/vue-editor/src/Viewer.vue";
@@ -61,18 +61,16 @@ export default {
     vditor.focus();
     if (this.$route.params.id) {
       debugger;
-      this.$axios
-        .get("http://localhost:3000/article/" + this.$route.params.id)
-        .then(result => {
-          console.log(result);
-          if (result.data.status === 1) {
-            this.article = result.data.data;
-            this.uid = result.data.data.userid;
+      this.$axios.get("/article/" + this.$route.params.id).then(result => {
+        console.log(result);
+        if (result.data.status === 1) {
+          this.article = result.data.data;
+          this.uid = result.data.data.userid;
 
-            this.content = this.article.content;
-            this.title = this.article.title;
-          }
-        });
+          this.content = this.article.content;
+          this.title = this.article.title;
+        }
+      });
     } else if (this.$store.state.temp.ifTemp) {
       this.content = this.$store.state.temp.content;
       this.title = this.$store.state.temp.title;

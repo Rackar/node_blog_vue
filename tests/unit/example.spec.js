@@ -1,13 +1,13 @@
 import { shallowMount } from "@vue/test-utils";
-import uploadnew from "@/components/uploadnew.vue";
+import upload from "@/components/upload.vue";
 
-describe("uploadnew.vue", () => {
+describe("upload.vue", () => {
   it("renders props.uploadType when passed", () => {
     const uploadType = {
       type: "avatar",
       data: ""
     };
-    const wrapper = shallowMount(uploadnew, {
+    const wrapper = shallowMount(upload, {
       propsData: {
         uploadType
       }
