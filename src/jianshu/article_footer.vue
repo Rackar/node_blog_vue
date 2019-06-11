@@ -182,7 +182,8 @@ export default {
       newValue.forEach(element => {
         element.userid;
         utility.getAvatarByUid(element.userid).then(image => {
-          element.avatar = image;
+          // element.avatar = image;
+          this.$set(element, "avatar", image);
         });
       });
     },
