@@ -23,7 +23,7 @@
       </el-col>
       <!-- <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 4, offset: 0 }"> -->
       <el-col v-if="newsrc" class="right">
-        <img :src="newsrc" class="previewImg">
+        <img :src="newsrc" class="previewImg" />
       </el-col>
     </el-row>
     <!-- <div class="left">
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import utility from "@/utility/";
 export default {
   methods: {},
   data() {
@@ -109,18 +110,18 @@ export default {
       return "/article/" + this.mydata._id;
     },
     datestring() {
-      let d = new Date(this.mydata.publicdate);
-      let datestring =
-        d.getFullYear() +
-        "-" +
-        ("0" + (d.getMonth() + 1)).slice(-2) +
-        "-" +
-        ("0" + d.getDate()).slice(-2) +
-        " " +
-        ("0" + d.getHours()).slice(-2) +
-        ":" +
-        ("0" + d.getMinutes()).slice(-2);
-      return datestring;
+      // let d = new Date(this.mydata.publicdate);
+      // let datestring =
+      //   d.getFullYear() +
+      //   "-" +
+      //   ("0" + (d.getMonth() + 1)).slice(-2) +
+      //   "-" +
+      //   ("0" + d.getDate()).slice(-2) +
+      //   " " +
+      //   ("0" + d.getHours()).slice(-2) +
+      //   ":" +
+      //   ("0" + d.getMinutes()).slice(-2);
+      return utility.dateToString(this.mydata.publicdate);
     }
   }
 };

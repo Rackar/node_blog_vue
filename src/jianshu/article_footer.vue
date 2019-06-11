@@ -3,7 +3,12 @@
     <!-- <el-button type="danger" round>赞赏支持</el-button> -->
 
     <el-select v-model="listSelected" placeholder="请选择">
-      <el-option v-for="item in lists" :key="item.id" :label="item.name" :value="item._id"></el-option>
+      <el-option
+        v-for="item in lists"
+        :key="item.id"
+        :label="item.name"
+        :value="item._id"
+      ></el-option>
     </el-select>
     <el-button @click="addToList">加入文集</el-button>
     <div class="jubao">
@@ -13,7 +18,7 @@
     <div class="writer">
       <a href class="pic">
         <!-- <img src="/img/1.jpg" alt width="80px" /> -->
-        <img :src="newsrc">
+        <img :src="newsrc" />
       </a>
       <el-button
         type="success"
@@ -21,11 +26,12 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-      >{{ isFollowed ? "取关" : "关注" }}</el-button>
+        >{{ isFollowed ? "取关" : "关注" }}</el-button
+      >
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
-        被 {{ user.followed.length - 1 }} 人关注
+        被 {{ user.followed.length }} 人关注
         <!-- ，获得了{{ user.count.liked }} 个喜欢 -->
       </div>
       <div class="info">
@@ -37,7 +43,11 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
+          <div
+            class="xihuan_button"
+            @click="likeArticle"
+            :class="{ iflike: iflike() }"
+          >
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -54,10 +64,16 @@
     <div></div>
 
     <div class="pinglun">
-      <a href class="pic">
-        <img src="/img/1.jpg" alt width="80px">
-      </a>
-      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
+      <span class="pic">
+        <img :src="myavatar" />
+      </span>
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入内容"
+        v-model="textarea"
+        class="textbox"
+      ></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -66,9 +82,14 @@
       <h3>评论</h3>
       <div v-for="item in comment_lists" :key="item.id" class="pinglun_single">
         <!-- {{ item }} -->
-        <div class="name">{{ item.username }}</div>
-        <div class="time">{{ item.time }}</div>
-        <div class="content">{{ item.content }}</div>
+        <span class="name">
+          <span class="pic">
+            <img :src="item.avatar" />
+          </span>
+          {{ item.username }}
+        </span>
+        <span class="time">{{ showDate(item.publicdate) }}</span>
+        <span class="content">{{ item.content }}</span>
       </div>
     </div>
   </div>
@@ -80,6 +101,7 @@ export default {
   data() {
     return {
       newsrc: "",
+      myavatar: "",
       listSelected: "",
       lists: [],
       textarea: "",
@@ -136,7 +158,9 @@ export default {
             id: 0,
             username: "",
             time: "",
-            content: ""
+            content: "",
+            userid: "",
+            avatar: ""
           }
         ];
       }
@@ -148,8 +172,20 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    utility
+      .getAvatarByUid(this.$store.state.userid)
+      .then(image => (this.myavatar = image));
+  },
   watch: {
+    comment_lists(newValue, oldValue) {
+      newValue.forEach(element => {
+        element.userid;
+        utility.getAvatarByUid(element.userid).then(image => {
+          element.avatar = image;
+        });
+      });
+    },
     uid(newValue, oldValue) {
       if (newValue != "") {
         utility
@@ -173,6 +209,22 @@ export default {
     }
   },
   methods: {
+    showDate(publicdate) {
+      return utility.dateToString(publicdate);
+    },
+    async getimage(uid) {
+      debugger;
+      let res = await utility
+        .getAvatarByUid(uid)
+        .then(image => {
+          return image;
+        })
+        .then(t => {
+          return t;
+        });
+      console.log(res);
+      return res;
+    },
     addToList() {
       console.log(this.listSelected);
       //判断选中的id和已有id中的article重不重
@@ -439,6 +491,7 @@ export default {
       margin-right: 8px;
       img {
         width: 50px;
+        height: 50px;
         border-radius: 50px;
       }
     }
@@ -513,9 +566,14 @@ export default {
     text-align: left;
     padding: 0 2%;
     .pic {
-      // float: left;
-      width: 10%;
-      margin-right: 2%;
+      // // float: left;
+      // width: 10%;
+      margin-right: 4%;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+      }
     }
     .textbox {
       width: 84%;
@@ -536,19 +594,31 @@ export default {
     .pinglun_single {
       padding: 15px 5px;
       border-top: 1px solid rgb(214, 214, 214);
+      margin: 0 10px;
       .name {
         display: inline;
         // font-size: 18px;
-        margin-left: 40px;
-        margin-right: 20px;
+        margin-left: 20px;
+        margin-right: 40px;
       }
       .time {
         display: inline;
         font-size: 14px;
         color: gray;
+        margin-right: 40px;
       }
       .content {
         margin-top: 20px;
+      }
+      .pic {
+        // // float: left;
+        // width: 10%;
+        margin-right: 4%;
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+        }
       }
     }
   }

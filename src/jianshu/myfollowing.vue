@@ -11,7 +11,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="lists.length"
     ></el-pagination>
-    <simple class="simple" v-for="x in pagedLists" :mydata="x" :key="x.id"/>
+    <simple class="simple" v-for="x in pagedLists" :mydata="x" :key="x.id" />
   </div>
 </template>
 
@@ -37,7 +37,8 @@ export default {
         console.log(res);
         // this.lists = res.data;
         this.lists = [];
-        this.lists.push(...res.data.data);
+        if (res.data.data && res.data.data.length)
+          this.lists.push(...res.data.data);
       });
       // this.$axios.get("http://localhost:3000/api/").then(res => {
       //   console.log(res);
