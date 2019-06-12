@@ -3,7 +3,12 @@
     <!-- <el-button type="danger" round>赞赏支持</el-button> -->
 
     <el-select v-model="listSelected" placeholder="请选择">
-      <el-option v-for="item in lists" :key="item.id" :label="item.name" :value="item._id"></el-option>
+      <el-option
+        v-for="item in lists"
+        :key="item.id"
+        :label="item.name"
+        :value="item._id"
+      ></el-option>
     </el-select>
     <el-button @click="addToList">加入文集</el-button>
     <div class="jubao">
@@ -13,7 +18,7 @@
     <div class="writer">
       <a href class="pic">
         <!-- <img src="/img/1.jpg" alt width="80px" /> -->
-        <img :src="newsrc">
+        <img :src="newsrc" />
       </a>
       <el-button
         type="success"
@@ -21,7 +26,8 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-      >{{ isFollowed ? "取关" : "关注" }}</el-button>
+        >{{ isFollowed ? "取关" : "关注" }}</el-button
+      >
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
@@ -37,7 +43,11 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
+          <div
+            class="xihuan_button"
+            @click="likeArticle"
+            :class="{ iflike: iflike() }"
+          >
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -55,9 +65,15 @@
 
     <div class="pinglun">
       <span class="pic">
-        <img :src="myavatar">
+        <img :src="myavatar" />
       </span>
-      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入内容"
+        v-model="textarea"
+        class="textbox"
+      ></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -66,14 +82,34 @@
       <h3>评论</h3>
       <div v-for="item in comment_lists" :key="item.id" class="pinglun_single">
         <!-- {{ item }} -->
-        <span class="name">
-          <span class="pic">
-            <img :src="item.avatar">
-          </span>
-          {{ item.username }}
-        </span>
-        <span class="time">{{ showDate(item.publicdate) }}</span>
-        <span class="content">{{ item.content }}</span>
+        <el-row :gutter="10">
+          <el-col :lg="{ span: 2 }" :sm="{ span: 2 }">
+            <img :src="item.avatar" />
+          </el-col>
+          <el-col :lg="{ span: 4 }" :sm="{ span: 4 }">
+            <div class="username">{{ item.username }}</div>
+            <div class="time">{{ showDate(item.publicdate) }}</div>
+          </el-col>
+          <el-col :lg="{ span: 14 }" :sm="{ span: 16 }">
+            <div>{{ item.content }}</div>
+          </el-col>
+        </el-row>
+
+        <!-- <div class="left">
+          <div>
+            <span class="name">
+              <span class="pic">
+                <img :src="item.avatar" />
+              </span>
+              {{ item.username }}
+            </span>
+          </div>
+          <div>
+            <span class="time">{{ showDate(item.publicdate) }}</span>
+          </div>
+        </div>-->
+
+        <!-- <span class="content">{{ item.content }}</span> -->
       </div>
     </div>
   </div>
@@ -316,8 +352,19 @@ export default {
             this.$mymess.success(res.data.msg);
             if (res.data.msg == "取关成功") {
               this.isFollowed = false;
+
+              var i = this.user.followed.findIndex(
+                value => value.userid == this.$store.state.userid
+              );
+
+              if (i == 0 && this.user.followed.length == 1) {
+                this.user.followed = [];
+              } else {
+                this.user.followed = this.user.followed.splice(i, 1);
+              }
             } else if (res.data.msg == "关注成功") {
               this.isFollowed = true;
+              this.user.followed.push(body);
             }
           } else {
             this.$mymess.error("关注失败");
@@ -535,30 +582,24 @@ export default {
       padding: 15px 5px;
       border-top: 1px solid rgb(214, 214, 214);
       margin: 0 10px;
-      .name {
-        display: inline;
-        // font-size: 18px;
-        margin-left: 20px;
-        margin-right: 40px;
+      line-height: 24px;
+      font-size: 16px;
+      // position: relative;
+      .username {
+        font-size: 20px;
+        line-height: 30px;
       }
       .time {
-        display: inline;
+        // display: inline;
         font-size: 14px;
         color: gray;
-        margin-right: 40px;
+        // margin-right: 40px;
       }
-      .content {
-        margin-top: 20px;
-      }
-      .pic {
-        // // float: left;
-        // width: 10%;
-        margin-right: 4%;
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50px;
-        }
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
       }
     }
   }
