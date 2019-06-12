@@ -3,12 +3,7 @@
     <!-- <el-button type="danger" round>赞赏支持</el-button> -->
 
     <el-select v-model="listSelected" placeholder="请选择">
-      <el-option
-        v-for="item in lists"
-        :key="item.id"
-        :label="item.name"
-        :value="item._id"
-      ></el-option>
+      <el-option v-for="item in lists" :key="item.id" :label="item.name" :value="item._id"></el-option>
     </el-select>
     <el-button @click="addToList">加入文集</el-button>
     <div class="jubao">
@@ -18,7 +13,7 @@
     <div class="writer">
       <a href class="pic">
         <!-- <img src="/img/1.jpg" alt width="80px" /> -->
-        <img :src="newsrc" />
+        <img :src="newsrc">
       </a>
       <el-button
         type="success"
@@ -26,8 +21,7 @@
         class="guanzhu"
         @click="followUser"
         :class="{ isFollowed: isFollowed }"
-        >{{ isFollowed ? "取关" : "关注" }}</el-button
-      >
+      >{{ isFollowed ? "取关" : "关注" }}</el-button>
       <div class="writer-name">作者名字:{{ user.username }}</div>
       <div>
         <!-- 写了 {{ user.count.words }} 字， -->
@@ -43,11 +37,7 @@
     <div class="buttons">
       <div class="left">
         <transition>
-          <div
-            class="xihuan_button"
-            @click="likeArticle"
-            :class="{ iflike: iflike() }"
-          >
+          <div class="xihuan_button" @click="likeArticle" :class="{ iflike: iflike() }">
             {{ iflike() ? "取消" : "点赞" }} ❤ |
             {{ liked_lists.length }}
           </div>
@@ -65,15 +55,9 @@
 
     <div class="pinglun">
       <span class="pic">
-        <img :src="myavatar" />
+        <img :src="myavatar">
       </span>
-      <el-input
-        type="textarea"
-        :rows="4"
-        placeholder="请输入内容"
-        v-model="textarea"
-        class="textbox"
-      ></el-input>
+      <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea" class="textbox"></el-input>
     </div>
     <div>
       <el-button @click="addComment">发送</el-button>
@@ -84,7 +68,7 @@
         <!-- {{ item }} -->
         <span class="name">
           <span class="pic">
-            <img :src="item.avatar" />
+            <img :src="item.avatar">
           </span>
           {{ item.username }}
         </span>
@@ -213,19 +197,7 @@ export default {
     showDate(publicdate) {
       return utility.dateToString(publicdate);
     },
-    async getimage(uid) {
-      debugger;
-      let res = await utility
-        .getAvatarByUid(uid)
-        .then(image => {
-          return image;
-        })
-        .then(t => {
-          return t;
-        });
-      console.log(res);
-      return res;
-    },
+
     addToList() {
       console.log(this.listSelected);
       //判断选中的id和已有id中的article重不重
@@ -308,12 +280,7 @@ export default {
         res => {
           console.log(res);
           if (res.data && res.data.status == 1) {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "success",
-              message: res.data.msg
-            });
+            this.$mymess.success(res.data.msg);
             if (res.data.msg == "取消点赞成功") {
               var i = this.liked_lists.findIndex(
                 value => value.userid == this.$store.state.userid
@@ -323,21 +290,11 @@ export default {
               this.liked_lists.push(body);
             }
           } else {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "error",
-              message: "点赞失败"
-            });
+            this.$mymess.error("点赞失败");
           }
         },
         err => {
-          this.$message({
-            showClose: true,
-            duration: 1000,
-            type: "error",
-            message: "点赞失败"
-          });
+          this.$mymess.error("点赞失败");
         }
       );
     },
@@ -356,32 +313,14 @@ export default {
         res => {
           console.log(res);
           if (res.data && res.data.status == 1) {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "success",
-              message: res.data.msg
-            });
+            this.$mymess.success(res.data.msg);
             if (res.data.msg == "取关成功") {
               this.isFollowed = false;
-              // var i = this.user.followed.findIndex(
-              //   value => value.userid == this.$store.state.userid
-              // );
-              // console.log(i);
-              // console.log(this.user.followed);
-              // this.user.followed = this.user.followed.splice(i, 1);
-              // console.log(this.user.followed);
             } else if (res.data.msg == "关注成功") {
-              // this.user.followed.push(body);
               this.isFollowed = true;
             }
           } else {
-            this.$message({
-              showClose: true,
-              duration: 1000,
-              type: "error",
-              message: "关注失败"
-            });
+            this.$mymess.error("关注失败");
           }
         },
         err => {
