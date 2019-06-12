@@ -6,21 +6,20 @@
         <h2 @click="$router.push(url)">{{ mydata.title }}</h2>
 
         <div class="markdown-body">{{ mydata.output }}</div>
-
-        <div class="tail">
-          <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
-          <i class="el-icon-user"></i>
-          <span class="info">{{ mydata.username }}</span>
-          <i class="el-icon-view"></i>
-          <span class="info">{{ mydata.clickCount }}</span>
-          <i class="el-icon-chat-line-square"></i>
-          <span class="info">{{ mydata.comment.length }}</span>
-          <span>❤</span>
-          <span class="info">{{ mydata.liked.length }}</span>
-
-          <span class="time">{{ datestring }}</span>
-        </div>
       </el-col>
+      <div class="tail">
+        <!-- <span class="el-icon-message info">{{ mydata.count_some }}</span> -->
+        <i class="el-icon-user"></i>
+        <span class="info">{{ mydata.username }}</span>
+        <i class="el-icon-view"></i>
+        <span class="info">{{ mydata.clickCount }}</span>
+        <i class="el-icon-chat-line-square"></i>
+        <span class="info">{{ mydata.comment.length }}</span>
+        <span>❤</span>
+        <span class="info">{{ mydata.liked.length }}</span>
+
+        <span class="time">{{ datestring }}</span>
+      </div>
       <!-- <el-col :sm="{ span: 24, offset: 0 }" :md="{ span: 4, offset: 0 }"> -->
       <el-col v-if="newsrc" class="right">
         <img :src="newsrc" class="previewImg" />
@@ -135,6 +134,17 @@ export default {
   width: 100%;
   padding-bottom: 20px;
   border-bottom: 1px rgb(197, 196, 196) solid;
+  .tail {
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    .time {
+      float: right;
+      margin-right: 20px;
+      color: rgb(179, 149, 149);
+      // text-align: right;
+    }
+  }
   .left {
     overflow: hidden;
     white-space: nowrap;
@@ -163,20 +173,13 @@ export default {
     .markdown-body {
       overflow: hidden;
       padding: 18px 0;
+      margin-left: 5px;
       // white-space: nowrap;
     }
     .name {
       position: absolute;
       right: 20px;
       top: 20px;
-    }
-    .tail {
-      .time {
-        float: right;
-        margin-right: 20px;
-        color: rgb(179, 149, 149);
-        // text-align: right;
-      }
     }
   }
   .right {

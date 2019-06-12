@@ -10,7 +10,7 @@
         :value="item._id"
       ></el-option>
     </el-select>
-    <el-button @click="addToList">加入文集</el-button>
+    <el-button @click="addToList" class="addListButton">加入文集</el-button>
     <div class="jubao">
       <!-- <span class="right">举报</span>
       <span class="left">文集</span>-->
@@ -446,6 +446,9 @@ export default {
 <style lang="scss" scoped>
 .myfooter {
   text-align: center;
+  .addListButton {
+    margin-left: 20px;
+  }
   .jubao {
     position: relative;
     height: 20px;
@@ -464,11 +467,11 @@ export default {
     text-align: left;
     padding: 20px;
     margin: 30px;
-    border-radius: 20px;
-    font-size: 14px;
-    color: rgb(77, 77, 77);
-    border: 1px solid rgb(190, 190, 190);
-    background-color: #f8f8f8;
+    // border-radius: 20px;
+    // font-size: 14px;
+    // color: rgb(77, 77, 77);
+    // border: 1px solid rgb(190, 190, 190);
+    // background-color: #f8f8f8;
     height: 120px;
     .writer-name {
       font-size: 22px;
